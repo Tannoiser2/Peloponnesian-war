@@ -65,6 +65,39 @@ func _init() -> void:
 	q.battaglia(q._forza_spazio("Megara", "A"), q._forza_spazio("Megara", "S"), "Megara", true, false)
 	vero(q.presenti("Megara", "A") == 0 or q.presenti("Megara", "S") == 0, "il perdente lascia lo spazio")
 	vero(q.s.pv != prima, "la battaglia sposta i punti vittoria")
+	# guarnigione di sole navi contro un'Armata di soli Opliti: battaglia nulla, torna a casa l'Armata (6.2.2)
+	var g := Partita.new()
+	g.nuova("campagna", 3)
+	g.sp("Pylos").u = {"AN": 1, "SH": 7, "sH": 3, "SC": 1}
+	g._capo_in("brasidas", "Pylos")
+	var pv0: int = g.s.pv
+	g.battaglia(g._forza_spazio("Pylos", "A"), g._forza_spazio("Pylos", "S"), "Pylos", true, false)
+	vero(g.presenti("Pylos", "A") == 1 and g.presenti("Pylos", "S") == 0 and g.s.pv == pv0, "la guarnigione navale resta, l'Armata di terra torna a casa senza punti")
+	# percorsi dell'esempio di gioco del manuale
+	var e := Partita.new()
+	e.nuova("campagna", 4)
+	var visti0 := {}
+	for i in 60:
+		var pe = e.percorso("Sparta", "Corinth", {"terra": 7, "mare": 0}, "S", "Decelea", false)
+		visti0[" ".join(pe)] = true
+		vero(pe.size() == 6 and not pe.has("Argos"), "Sparta-Corinto in 6 spazi senza Argo: %s" % [pe])
+	vero(visti0.has("Belmina Methydrum Orchomenus Philius Sicyon Corinth") and visti0.size() == 2, "la via del manuale e quella per Tegea e Mantinea: %s" % [visti0.keys()])
+	var visti := {}
+	for i in 80:
+		visti[" ".join(e.percorso("Corinth", "Thebes", {"terra": 11, "mare": 0}, "S", "Decelea", false))] = true
+	vero(visti.size() == 4, "quattro percorsi equivalenti Corinto-Tebe: %d" % visti.size())
+	visti = {}
+	for i in 60:
+		visti[" ".join(e.percorso("Thebes", "Decelea", {"terra": 14, "mare": 0}, "S", "Decelea", false))] = true
+	vero(visti.size() == 2, "due percorsi Tebe-Decelea: %d" % visti.size())
+	var giro = e.percorso("Piraeus", "Erineus", {"terra": 0, "mare": 3}, "A", "Erineus", true)
+	vero(giro.size() == 18 and giro.has("Pylos") and giro.has("Naupactus") and giro[giro.size() - 2] == "Panormus", "il giro del Peloponneso di Pericle: %d spazi" % giro.size())
+	e.sp("Decelea").u = {"SH": 7}
+	visti = {}
+	for i in 80:
+		var pc = e.percorso("Athens", "Chios", {"terra": 0, "mare": 0}, "A", "Heraclea", true)
+		visti[" ".join(pc)] = pc.size()
+	vero(visti.size() == 4 and visti.values().max() == 6 and visti.has("Piraeus Aegina Kithnos Siros Andros Chios"), "quattro percorsi da 6 spazi per Demostene da solo (non per Decelea occupata): %s" % [visti.keys()])
 	# salvataggio
 	var r := Partita.new()
 	r.importa(JSON.parse_string(JSON.stringify(q.esporta())))

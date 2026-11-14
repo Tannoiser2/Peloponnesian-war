@@ -20,6 +20,8 @@ var selezionato := ""
 var evidenziati := {}                # id -> Color (spazi scelti o proponibili)
 var obiettivo := ""
 var mostra_zoi := ""
+var scena_centro := ""             # per le illustrazioni del tutorial: spazio da inquadrare
+var scena_zoom := 0.0
 
 var _tocchi := {}
 var _premuto := false
@@ -44,7 +46,7 @@ func _ready() -> void:
 		tex["capo_" + c] = load("res://assets/pedine/capo_%s.png" % c)
 	font_num = load("res://assets/font/Titoli.ttf")
 	font_testo = load("res://assets/font/TestoGrassetto.ttf")
-	resized.connect(_limita)
+	resized.connect(_ridimensionata)
 	call_deferred("centra_tutto")
 
 func _process(dt: float) -> void:
@@ -55,7 +57,17 @@ func _process(dt: float) -> void:
 func zoom_minimo() -> float:
 	return max(size.x / Dati.larghezza, size.y / Dati.altezza) * 0.82
 
+func _ridimensionata() -> void:
+	if scena_centro != "":
+		centra_tutto()
+	else:
+		_limita()
+
 func centra_tutto() -> void:
+	if scena_centro != "":
+		zoom = scena_zoom
+		centra_su(pos(scena_centro))
+		return
 	zoom = max(zoom_minimo(), min(size.x / 2100.0, 1.2))
 	centra_su(Vector2(2100, 1550))
 

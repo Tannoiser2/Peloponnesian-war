@@ -16,7 +16,12 @@ Si gioca qui: https://tannoiser2.github.io/Peloponnesian-war/
 - Strategia difensiva e matrici di Atene e di Sparta, tabella degli eventi, tabella dei ritorni, potenze minori
   (Argo, Siracusa, Macedonia, Persia), Alcibiade, ostaggi, Guardia di Sparta.
 - Errata ufficiali e chiarimenti della comunità (luglio 2020) applicati.
-- Mappa e pedine originali del modulo di Tabletop Simulator; interfaccia, regole in breve, tabelle e diario in italiano.
+- Mappa e pedine originali del modulo di Tabletop Simulator; interfaccia, regole in breve, tabelle e diario in italiano,
+  con i termini dell'edizione italiana del regolamento (Lega di Delo, comandanti, SP, ZOI, SCI, Saccheggio,
+  Schermaglia, Verso Casa, Armistizio).
+- **Tutorial passo passo** (menu e barra in alto), 34 pagine: il regolamento in ordine con le situazioni mostrate
+  sulla mappa, l'Esempio di Gioco del Manuale del Giocatore rivissuto mossa per mossa, e le strategie (conti della
+  vittoria, probabilità, SCI e cambio di parte, Atene, Sparta, come battere la Matrice).
 - Mappa da spostare e ingrandire con mouse, rotella e tocco (un dito trascina, due dita pizzicano), anche su iPad.
 - Salvataggio automatico sul dispositivo e su Firebase (radice `peloponnesianwar/partite`, coperta dalla regola comune
   della ludoteca): con il codice di 6 caratteri la partita si riprende da un altro dispositivo.
@@ -27,7 +32,12 @@ Si gioca qui: https://tannoiser2.github.io/Peloponnesian-war/
 - Le perdite colpiscono prima gli alleati, poi le truppe ateniesi o spartane, per ultima la Guardia di Sparta.
 - Il giocatore raduna la spedizione toccando gli spazi amici uno dopo l'altro: il condottiero li raggiunge per la via
   più breve, con le intercettazioni del caso, e paga l'attivazione sul posto.
-- Gli altri scenari del Playbook non sono compresi: nel modulo di partenza il Playbook non c'è.
+- Per ora ci sono la Campagna e la Guerra Archidamica. Gli altri scenari del Manuale del Giocatore (Guerra Deceleica,
+  Caduta di Atene, Prima Guerra del Peloponneso; la Caduta di Sparta è solo per due giocatori) non sono ancora compresi.
+- Dove l'Esempio di Gioco del manuale e la mappa non coincidono, vale la mappa: Pteleo-Eraclea è una LOC di sola Terra,
+  e da Sparta a Corinto e da Atene a Chio esiste un percorso equivalente in più.
+- Gli SP che contano per trasformare una schermaglia in battaglia si contano prima delle perdite della schermaglia,
+  come nell'esempio del manuale.
 
 ## Sviluppo
 
@@ -41,6 +51,7 @@ scripts/mappa.gd      mappa con spostamento e zoom, pedine e segnalini
 scripts/main.gd       interfaccia
 scripts/net.gd        salvataggi su Firebase
 scripts/aiuto.gd      regole in breve e tabelle
+scripts/tutorial.gd   tutorial passo passo: regolamento, esempio di gioco, strategie
 data/spazi.json       193 spazi con posizione, tipo, colore, fortezza e collegamenti
 tools/estrazione/     preparazione di mappa, pedine e dati dal modulo TTS
 ```

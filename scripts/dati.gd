@@ -4,7 +4,7 @@ extends RefCounted
 
 const CASA := {"A": "Athens", "S": "Sparta"}
 const NOME_LATO := {"A": "Atene", "S": "Sparta"}
-const LEGA := {"A": "Lega delio-attica", "S": "Lega del Peloponneso"}
+const LEGA := {"A": "Lega di Delo", "S": "Lega del Peloponneso"}
 const AVV := {"A": "S", "S": "A"}
 
 ## Sigle delle unità: prima lettera = nazionalità (A ateniesi, a alleati di Atene, S spartani, s alleati di Sparta),
@@ -13,7 +13,7 @@ const CHIAVI := ["AH", "AC", "AN", "aH", "aC", "aN", "SH", "SG", "SC", "SN", "sH
 const NOME_UNITA := {
 	"AH": "opliti ateniesi", "AC": "cavalleria ateniese", "AN": "navi ateniesi",
 	"aH": "opliti alleati di Atene", "aC": "cavalleria alleata di Atene", "aN": "navi alleate di Atene",
-	"SH": "opliti spartani", "SG": "Guardia di Sparta", "SC": "cavalleria spartana", "SN": "navi spartane",
+	"SH": "opliti spartani", "SG": "Guardia Nazionale", "SC": "cavalleria spartana", "SN": "navi spartane",
 	"sH": "opliti alleati di Sparta", "sC": "cavalleria alleata di Sparta", "sN": "navi alleate di Sparta",
 }
 const BREVE := {
@@ -34,9 +34,17 @@ const CAPI := {
 }
 
 const NOME_STRATEGIA := {
-	"": "nessuna", "attacco": "Attacco alla capitale nemica", "rivolta": "Fomentare la rivolta",
-	"loc": "Tagliare le linee di comunicazione", "alleati": "Attacco agli alleati nemici",
+	"": "nessuna", "attacco": "Attaccare lo spazio nazionale nemico", "rivolta": "Causare Ribellione",
+	"loc": "Tagliare LOC", "alleati": "Attaccare Alleato nemico",
 }
+
+## Nome della strategia come sulla Matrice Strategica della parte indicata.
+static func nome_strategia(k: String, lato: String) -> String:
+	if k == "attacco":
+		return "Attaccare Atene" if lato == "S" else "Attaccare Sparta"
+	if k == "alleati":
+		return "Attaccare Alleato ateniese" if lato == "S" else "Attaccare Alleato spartano"
+	return NOME_STRATEGIA[k]
 
 ## Matrice di Sparta (quando Sparta è guidata dal gioco). Dado modificato -> strategia.
 const MATRICE := {
@@ -88,10 +96,10 @@ const RIVOLTE_DELIE := {2: "Cnidus", 3: "Naxos", 4: "Byzantium", 5: "Chalcis", 6
 const SICILIA := ["Lilybaeum", "Panormus Sicily", "Selinus", "Gela", "Acragas", "Segesta", "Enna", "Leontini", "Camarina", "Helorus", "Syracuse", "Himera", "Catana", "Messina"]
 
 const NOME_EVENTO := {
-	2: "Scoperta una miniera d'argento", 3: "Rivolta oligarchica ad Atene", 4: "Re Sitalce di Tracia cambia alleanza",
-	5: "La Persia entra in guerra", 6: "Peste ad Atene: muore Pericle", 7: "Un demagogo in vendita (Alcibiade)",
-	8: "Rivolta oligarchica nella Lega delio-attica", 9: "Re Perdicca di Macedonia cambia alleanza",
-	10: "Potenze minori", 11: "Morte dei condottieri", 12: "Prodigi: eclissi o terremoto",
+	2: "Scoperta una miniera d'argento", 3: "Ribellione oligarchica ad Atene", 4: "Re Sitalce di Tracia cambia alleanza",
+	5: "La Persia entra in guerra", 6: "Epidemia ad Atene: Pericle muore", 7: "Demagogo da Assumere (Alcibiade)",
+	8: "Ribellione oligarchica nella Lega di Delo", 9: "Re Perdicca di Macedonia cambia alleanza",
+	10: "Potenze minori", 11: "Morte dei comandanti", 12: "Fenomeno: eclissi o terremoto",
 }
 
 const ANNI := ["431-429", "428-426", "425-423", "422-420", "419-417", "416-414", "413-411", "410-408", "407-405", "404-402"]

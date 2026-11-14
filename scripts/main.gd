@@ -13,7 +13,7 @@ const VERDE := Color("3f6b2b")
 const ROSSO := Color("9c1f24")
 const COLORE_LATO := {"A": Color("3f6b2b"), "S": Color("9c1f24")}
 const SALVATAGGIO := "user://pw_partita.json"
-const FASI := [["politica", "Politica"], ["strategia", "Strategia"], ["operazioni", "Operazioni"], ["combattimento", "Combattimento"], ["rivolte", "Rivolte"], ["amministrazione", "Amministrazione"], ["tregua", "Tregua e resa"]]
+const FASI := [["politica", "Politica"], ["strategia", "Strategia"], ["operazioni", "Operazioni"], ["combattimento", "Combattimento"], ["rivolte", "Ribellione"], ["amministrazione", "Amministrazione"], ["tregua", "Armistizio e resa"]]
 
 var f_titoli: Font
 var f_testo: Font
@@ -203,7 +203,7 @@ func _costruisci_menu() -> void:
 	var t2 := etichetta("La guerra del Peloponneso, 431-404 a.C.", 26, INCHIOSTRO, f_corsivo)
 	t2.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(t2)
-	var t3 := etichetta("Solitario di Mark Herman (GMT Games). Atene contro Sparta: comandi una delle due leghe, il gioco guida l'altra, e la sorte può farti cambiare schieramento.", 20, INCHIOSTRO, null, 640)
+	var t3 := etichetta("Solitario di Mark Herman (GMT Games). Atene contro Sparta: comandi una delle due leghe, il gioco guida l'altra, e la sorte può farti cambiare parte.", 20, INCHIOSTRO, null, 640)
 	t3.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(t3)
 	var g2 := Greca.new()
@@ -228,7 +228,15 @@ func _costruisci_menu() -> void:
 	stato_rete = etichetta("I salvataggi restano su questo dispositivo e, con il codice, anche online.", 18, Color("5b4a36"), f_corsivo, 640)
 	stato_rete.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(stato_rete)
-	v.add_child(bottone("Regole in breve", func(): _finestra_testo("Regole in breve", Aiuto.REGOLE)))
+	var rg := HBoxContainer.new()
+	rg.add_theme_constant_override("separation", 10)
+	v.add_child(rg)
+	var bt := bottone("Tutorial passo passo", _apri_tutorial, 20)
+	bt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	rg.add_child(bt)
+	var br := bottone("Regole in breve", func(): _finestra_testo("Regole in breve", Aiuto.REGOLE))
+	br.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	rg.add_child(br)
 	var crediti := etichetta("Versione digitale per uso personale. Mappa e pedine: GMT Games, 2019.", 16, Color("5b4a36"), null, 640)
 	crediti.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(crediti)
@@ -355,7 +363,7 @@ func _apri_gioco() -> void:
 	barra_pv.clip_text = true
 	barra_pv.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	r1.add_child(barra_pv)
-	for voce in [["Diario", _apri_diario], ["Tabelle", _apri_tabelle], ["Regole", func(): _finestra_testo("Regole in breve", Aiuto.REGOLE)], ["Salva", _apri_salva], ["Menu", _torna_menu]]:
+	for voce in [["Diario", _apri_diario], ["Tabelle", _apri_tabelle], ["Tutorial", _apri_tutorial], ["Salva", _apri_salva], ["Menu", _torna_menu]]:
 		var b := bottone(voce[0], voce[1], 16)
 		b.custom_minimum_size = Vector2(88, 42)
 		r1.add_child(b)
@@ -509,22 +517,22 @@ func _pannello_lato(lato: String) -> void:
 	testa.add_child(etichetta("tu" if lato == s.lato_g else "gioco", 17, Color("5b4a36"), f_corsivo))
 	vb.add_child(_riga_valore("Tesoro", "%d talenti" % s.tes[lato]))
 	vb.add_child(_riga_valore("Bellicosità", "%d su 12" % s.bel[lato], ROSSO if s.bel[lato] <= 3 else INCHIOSTRO))
-	vb.add_child(_riga_valore("Fiducia strategica", ("%+d" % s.sci[lato]) if s.sci[lato] != 0 else "0", ROSSO if s.sci[lato] < 0 else (VERDE if s.sci[lato] > 0 else INCHIOSTRO)))
+	vb.add_child(_riga_valore("Sicurezza strategica", ("%+d" % s.sci[lato]) if s.sci[lato] != 0 else "0", ROSSO if s.sci[lato] < 0 else (VERDE if s.sci[lato] > 0 else INCHIOSTRO)))
 	if lato != s.lato_g:
-		var st := etichetta("Strategia: %s" % Dati.NOME_STRATEGIA[s.strategia[lato]], 18, INCHIOSTRO, f_corsivo, 260)
+		var st := etichetta("Strategia: %s" % Dati.nome_strategia(s.strategia[lato], lato), 18, INCHIOSTRO, f_corsivo, 260)
 		vb.add_child(st)
 	var capi := []
 	for c in partita.capi_casa(lato):
 		capi.append("%s %d/%d" % [Dati.capo_nome(c), Dati.CAPI[c][1], Dati.CAPI[c][2]])
-	vb.add_child(etichetta("Nella capitale: %s" % (", ".join(capi) if not capi.is_empty() else "nessun condottiero"), 18, INCHIOSTRO, null, 260))
+	vb.add_child(etichetta("Nella capitale: %s" % (", ".join(capi) if not capi.is_empty() else "nessun comandante"), 18, INCHIOSTRO, null, 260))
 	var note := []
-	note.append("%d nella coppa" % partita.coppa(lato).size())
+	note.append("%d nella tazza" % partita.coppa(lato).size())
 	if s.ostaggi[lato]:
 		note.append("ha degli ostaggi")
 	if s.passato[lato]:
 		note.append("ha passato")
 	if lato == "S" and s.iloti:
-		note.append("iloti in rivolta")
+		note.append("Iloti in ribellione")
 	vb.add_child(etichetta(", ".join(note), 17, Color("5b4a36"), f_corsivo, 260))
 
 # ------------------------------------------------------------------ pannello delle azioni
@@ -604,7 +612,7 @@ func _azione_operazione() -> void:
 		var d: Dictionary = Dati.spazi[ob_scelto]
 		azione.add_child(etichetta("Obiettivo: %s (%s%s)" % [d.nome, Dati.tipo_spazio_nome(d.t), ", fortezza" if d.f == 1 else ""], 22, INCHIOSTRO, f_grassetto, 500))
 		var cb := CheckBox.new()
-		cb.text = "Fomenta la rivolta (100 talenti, riesce con 6)"
+		cb.text = "Causa Ribellione (100 talenti, riesce con 6)"
 		cb.button_pressed = rib_scelta
 		cb.add_theme_font_size_override("font_size", 19)
 		cb.custom_minimum_size = Vector2(480, 40)
@@ -624,7 +632,7 @@ func _azione_operazione() -> void:
 			bcapo.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			hc.add_child(bcapo)
 	elif capo_scelto != "":
-		azione.add_child(etichetta("Condottiero: %s (tattico %d, strategico %d)" % [Dati.capo_nome(capo_scelto), Dati.CAPI[capo_scelto][1], Dati.CAPI[capo_scelto][2]], 19, INCHIOSTRO, null, 500))
+		azione.add_child(etichetta("Comandante: %s (tattico %d, strategico %d)" % [Dati.capo_nome(capo_scelto), Dati.CAPI[capo_scelto][1], Dati.CAPI[capo_scelto][2]], 19, INCHIOSTRO, null, 500))
 	var h := HBoxContainer.new()
 	h.add_theme_constant_override("separation", 8)
 	azione.add_child(h)
@@ -714,7 +722,7 @@ func _azione_raduno() -> void:
 	if raduno_spazio != "" and partita.disponibili(raduno_spazio, o.lato).is_empty():
 		raduno_spazio = ""
 	if raduno_spazio == "":
-		azione.add_child(etichetta("Tocca uno spazio cerchiato di verde per unire alla spedizione le truppe che vi si trovano; il condottiero lo raggiunge per la via più breve. Quando sei pronto, marcia.", 19, INCHIOSTRO, null, 500))
+		azione.add_child(etichetta("Tocca uno spazio cerchiato di verde per unire alla spedizione le truppe che vi si trovano; il comandante lo raggiunge per la via più breve. Quando sei pronto, marcia.", 19, INCHIOSTRO, null, 500))
 	else:
 		mappa.evidenziati[raduno_spazio] = Color(1.0, 0.9, 0.3, 1.0)
 		azione.add_child(etichetta("Truppe a %s" % Dati.nome(raduno_spazio), 21, TERRACOTTA, f_titoli))
@@ -832,13 +840,13 @@ func _pannello_info() -> void:
 	chiudi.custom_minimum_size = Vector2(84, 38)
 	testa.add_child(chiudi)
 	var colore := partita.colore(id)
-	var lega: String = {"G": "Lega delio-attica", "R": "Lega del Peloponneso", "Y": "neutrale"}[colore]
+	var lega: String = {"G": "Lega di Delo", "R": "Lega del Peloponneso", "Y": "neutrale"}[colore]
 	info.add_child(etichetta("Spazio di %s%s, %s." % [Dati.tipo_spazio_nome(d.t), " con fortezza" if d.f == 1 else "", lega], 18, INCHIOSTRO, null, 370))
 	var c := partita.ctrl(id)
 	var stato := []
 	stato.append("Controllo: %s" % (Dati.NOME_LATO[c] if c != "" else "nessuno"))
 	if partita.in_rivolta(id):
-		stato.append("in rivolta")
+		stato.append("in ribellione")
 	if partita.s.sp.has(id) and partita.s.sp[id].dev:
 		stato.append("devastato")
 	info.add_child(etichetta(", ".join(stato) + ".", 18, INCHIOSTRO, f_grassetto, 370))
@@ -854,9 +862,9 @@ func _pannello_info() -> void:
 				info.add_child(h)
 	var capi := partita.capi_in(id, "A") + partita.capi_in(id, "S")
 	for cp in capi:
-		info.add_child(etichetta("Condottiero: %s (tattico %d, strategico %d)" % [Dati.capo_nome(cp), Dati.CAPI[cp][1], Dati.CAPI[cp][2]], 18, INCHIOSTRO, f_corsivo, 370))
+		info.add_child(etichetta("Comandante: %s (tattico %d, strategico %d)" % [Dati.capo_nome(cp), Dati.CAPI[cp][1], Dati.CAPI[cp][2]], 18, INCHIOSTRO, f_corsivo, 370))
 	if partita.presenti(id, "A") + partita.presenti(id, "S") > 0:
-		var bz := bottone("Nascondi la zona d'influenza" if mappa.mostra_zoi == id else "Mostra la zona d'influenza", func(): mappa.mostra_zoi = "" if mappa.mostra_zoi == id else id; aggiorna(), 15)
+		var bz := bottone("Nascondi la ZOI" if mappa.mostra_zoi == id else "Mostra la ZOI", func(): mappa.mostra_zoi = "" if mappa.mostra_zoi == id else id; aggiorna(), 15)
 		info.add_child(bz)
 
 # ------------------------------------------------------------------ finestre
@@ -913,7 +921,7 @@ func _entrate_bb() -> String:
 		t += "[b]%s: %d talenti[/b]\n" % [Dati.NOME_LATO[lato], e.totale]
 		for v in e.voci:
 			t += "%s: %+d\n" % [v[0], v[1]]
-		t += "Spazi della lega devastati, in rivolta o perduti: %d (ogni 10 tolgono 1 alla bellicosità).\n\n" % partita.spazi_persi(lato)
+		t += "Spazi della lega saccheggiati, in ribellione o perduti: %d (ogni 10 tolgono 1 alla bellicosità).\n\n" % partita.spazi_persi(lato)
 	return t
 
 func _apri_tabelle() -> void:
@@ -924,7 +932,7 @@ func _apri_tabelle() -> void:
 	v.add_child(schede)
 	var testo := testo_ricco(Aiuto.matrice(Dati.AVV[partita.s.lato_g]), 960, _altezza_finestra() - 60)
 	v.add_child(testo)
-	for voce in [["Matrice di Atene", func(): return Aiuto.matrice("A")], ["Matrice di Sparta", func(): return Aiuto.matrice("S")], ["Eventi", func(): return Aiuto.EVENTI], ["Ritorni", func(): return Aiuto.RITORNI], ["Entrate", _entrate_bb]]:
+	for voce in [["Matrice di Atene", func(): return Aiuto.matrice("A")], ["Matrice di Sparta", func(): return Aiuto.matrice("S")], ["Eventi", func(): return Aiuto.EVENTI], ["Ritorni", func(): return Aiuto.RITORNI], ["Entrate", _entrate_bb], ["Regole in breve", func(): return Aiuto.REGOLE]]:
 		var b := bottone(voce[0], func(): testo.text = voce[1].call(); testo.scroll_to_line(0), 16)
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		schede.add_child(b)
@@ -958,10 +966,169 @@ func _apri_salva() -> void:
 	else:
 		esito.text = "Salvataggio online non riuscito: la partita resta su questo dispositivo. %s" % net.ultimo_errore
 
+# ------------------------------------------------------------------ tutorial
+var tut_pagina := 0
+var _tut_strato: Control
+var _tut_destra: VBoxContainer
+var _tut_indice := []
+
+func _scena_partita(sc: Dictionary) -> Partita:
+	var p := Partita.new()
+	p.nuova("campagna", 1)
+	p.s.percorso = sc.get("percorso", [])
+	p.s.ultimo_ob = ""
+	var mod: Dictionary = sc.get("sp", {})
+	for id in mod:
+		var x := p.sp(id)
+		var d: Dictionary = mod[id]
+		if d.has("u"):
+			x.u = d.u.duplicate()
+			x.a = d.get("a", {}).duplicate()
+		x.riv = d.get("riv", x.riv)
+		x.dev = d.get("dev", x.dev)
+		x.ass = d.get("ass", x.ass)
+	var capi: Dictionary = sc.get("capi", {})
+	for c in capi:
+		if capi[c] == "":
+			p.s.capi[c] = {"stato": "coppa", "pos": ""}
+		else:
+			p._capo_in(c, capi[c])
+	return p
+
+func _apri_tutorial() -> void:
+	if is_instance_valid(_tut_strato):
+		_tut_strato.queue_free()
+	var pagine := Tutorial.pagine()
+	_tut_strato = Control.new()
+	_tut_strato.set_anchors_preset(Control.PRESET_FULL_RECT)
+	add_child(_tut_strato)
+	var fondo := ColorRect.new()
+	fondo.color = Color(0.09, 0.06, 0.04, 0.88)
+	fondo.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_tut_strato.add_child(fondo)
+	var margine := MarginContainer.new()
+	margine.set_anchors_preset(Control.PRESET_FULL_RECT)
+	for lato in ["left", "right", "top", "bottom"]:
+		margine.add_theme_constant_override("margin_" + lato, 14)
+	_tut_strato.add_child(margine)
+	var pc := PanelContainer.new()
+	pc.add_theme_stylebox_override("panel", _scatola(PERGAMENA, TERRACOTTA, 5, 10, 16))
+	margine.add_child(pc)
+	var h := HBoxContainer.new()
+	h.add_theme_constant_override("separation", 16)
+	pc.add_child(h)
+	# indice a sinistra
+	var sin := VBoxContainer.new()
+	sin.custom_minimum_size = Vector2(340, 0)
+	sin.add_theme_constant_override("separation", 6)
+	h.add_child(sin)
+	sin.add_child(etichetta("TUTORIAL", 28, TERRACOTTA, f_decorato))
+	var g := Greca.new()
+	g.custom_minimum_size = Vector2(330, 16)
+	sin.add_child(g)
+	var sc := ScrollContainer.new()
+	sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	sin.add_child(sc)
+	var lista := VBoxContainer.new()
+	lista.add_theme_constant_override("separation", 2)
+	lista.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	sc.add_child(lista)
+	_tut_indice = []
+	var parte := ""
+	for i in pagine.size():
+		if pagine[i].parte != parte:
+			parte = pagine[i].parte
+			var tp := etichetta(parte, 17, TERRACOTTA, f_titoli, 310)
+			lista.add_child(tp)
+		var b := Button.new()
+		b.text = pagine[i].titolo
+		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		b.clip_text = true
+		b.focus_mode = Control.FOCUS_NONE
+		b.custom_minimum_size = Vector2(310, 36)
+		b.add_theme_font_override("font", f_testo)
+		b.add_theme_font_size_override("font_size", 18)
+		b.pressed.connect(_tut_vai.bind(i))
+		lista.add_child(b)
+		_tut_indice.append(b)
+	# pagina a destra
+	_tut_destra = VBoxContainer.new()
+	_tut_destra.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_tut_destra.add_theme_constant_override("separation", 8)
+	h.add_child(_tut_destra)
+	_tut_vai(clampi(tut_pagina, 0, pagine.size() - 1))
+
+func _tut_vai(i: int) -> void:
+	var pagine := Tutorial.pagine()
+	tut_pagina = clampi(i, 0, pagine.size() - 1)
+	var pg: Dictionary = pagine[tut_pagina]
+	for k in _tut_indice.size():
+		var b: Button = _tut_indice[k]
+		var attiva: bool = k == tut_pagina
+		for stato in ["normal", "hover", "pressed"]:
+			var colore := TERRACOTTA if attiva else (PERGAMENA_SCURA if stato == "hover" else Color(0, 0, 0, 0))
+			var sb := _scatola(colore, colore, 0, 4, 4)
+			sb.content_margin_left = 10
+			b.add_theme_stylebox_override(stato, sb)
+		for nome in ["font_color", "font_hover_color", "font_pressed_color"]:
+			b.add_theme_color_override(nome, PERGAMENA if attiva else INCHIOSTRO)
+	if tut_pagina < _tut_indice.size():
+		var sc_indice := _tut_indice[tut_pagina].get_parent().get_parent() as ScrollContainer
+		if sc_indice != null:
+			sc_indice.call_deferred("ensure_control_visible", _tut_indice[tut_pagina])
+	_svuota(_tut_destra)
+	var testa := HBoxContainer.new()
+	testa.add_theme_constant_override("separation", 10)
+	_tut_destra.add_child(testa)
+	var tit := etichetta(pg.titolo, 28, TERRACOTTA, f_titoli, 600)
+	testa.add_child(tit)
+	var chiudi := bottone("Chiudi", _tut_strato.queue_free, 17)
+	chiudi.custom_minimum_size = Vector2(120, 44)
+	chiudi.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	testa.add_child(chiudi)
+	if pg.has("scena"):
+		var scn: Dictionary = pg.scena
+		var cornice := PanelContainer.new()
+		cornice.add_theme_stylebox_override("panel", _scatola(NERO, TERRACOTTA, 3, 4, 3))
+		cornice.custom_minimum_size = Vector2(0, clampf(size.y * 0.36, 250.0, 420.0))
+		_tut_destra.add_child(cornice)
+		var m := Mappa.new()
+		m.partita = _scena_partita(scn)
+		m.scena_centro = scn.get("centro", "Athens")
+		m.scena_zoom = scn.get("zoom", 0.8)
+		m.obiettivo = scn.get("ob", "")
+		m.mostra_zoi = scn.get("zoi", "")
+		for id in scn.get("cerchi", []):
+			m.evidenziati[id] = Color(1.0, 0.82, 0.2, 0.95)
+		cornice.add_child(m)
+	var testo := testo_ricco(pg.testo, 600, 200)
+	testo.add_theme_constant_override("line_separation", 3)
+	_tut_destra.add_child(testo)
+	var nav := HBoxContainer.new()
+	nav.add_theme_constant_override("separation", 10)
+	_tut_destra.add_child(nav)
+	var ind := bottone("Indietro", _tut_vai.bind(tut_pagina - 1), 18)
+	ind.disabled = tut_pagina == 0
+	ind.custom_minimum_size = Vector2(170, 46)
+	nav.add_child(ind)
+	var conta := etichetta("Pagina %d di %d" % [tut_pagina + 1, pagine.size()], 18, Color("5b4a36"), f_corsivo)
+	conta.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	conta.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	nav.add_child(conta)
+	var av := bottone("Avanti", _tut_vai.bind(tut_pagina + 1), 18)
+	av.disabled = tut_pagina == pagine.size() - 1
+	av.custom_minimum_size = Vector2(170, 46)
+	nav.add_child(av)
+
 # ------------------------------------------------------------------ avvio per le prove (screenshot)
 func _avvio_prova(modo: String) -> void:
 	net.offline = true
 	if modo == "menu":
+		return
+	if modo == "tutorial":
+		tut_pagina = int(OS.get_environment("PW_PASSI")) if OS.get_environment("PW_PASSI") != "" else 0
+		_apri_tutorial()
 		return
 	partita = Partita.new()
 	partita.nuova("campagna", 4242)

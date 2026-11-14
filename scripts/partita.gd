@@ -46,7 +46,7 @@ func nuova(scenario: String, seme: int = 0) -> void:
 	_metti("Corinth", {"sH": 5, "sN": 5})
 	_metti("Thebes", {"sH": 5, "sC": 4})
 	s.op_fatte.A = 1
-	nota("fase", "Turno 1 (%s a.C.). Comandi Atene. La spedizione di Formione assedia Potidea in rivolta; tocca a Sparta." % Dati.ANNI[0])
+	nota("fase", "Turno 1 (%s a.C.). Comandi Atene. La spedizione di Formione assedia Potidea in ribellione; tocca a Sparta." % Dati.ANNI[0])
 	op = {}
 
 func esporta() -> Dictionary:
@@ -512,7 +512,7 @@ func ritorno_a_casa() -> void:
 		var p := []
 		for id in s.rientri:
 			p.append("%d a %s" % [s.rientri[id], Dati.nome(id)])
-		nota("op", "Ritorno a casa: " + ", ".join(p) + ".")
+		nota("op", "Verso Casa: " + ", ".join(p) + ".")
 
 # ------------------------------------------------------------------ battaglie
 ## Una forza in battaglia: {lato, u (dizionario vivo), capi, dove ("op" o id dello spazio)}
@@ -721,7 +721,7 @@ func _ostaggi(vincitore: String, perse: Array) -> void:
 	for k in perse:
 		if k in ["AH", "SH", "SG"]:
 			s.ostaggi[vincitore] = true
-			nota("ev", "%s cattura degli ostaggi: finché non c'è una tregua %s non può attaccare la capitale nemica." % [nl(vincitore), nl(Dati.AVV[vincitore])])
+			nota("ev", "%s cattura degli ostaggi: finché non c'è un armistizio %s non può attaccare la capitale nemica." % [nl(vincitore), nl(Dati.AVV[vincitore])])
 			return
 
 # ------------------------------------------------------------------ operazioni: movimento, intercettazioni
@@ -839,9 +839,16 @@ func muovi(dest: String, verso_ob: bool) -> bool:
 		s.percorso.append(b)
 		var intercettata := false
 		var forze := copre(avv, b)
-		if not forze.is_empty():
-			var fz: String = forze[rng.randi_range(0, forze.size() - 1)]
-			var di := d6()
+		var istmo := ""
+		if b == "Cenchrae" or b == "Corinth":
+			var altro := "Corinth" if b == "Cenchrae" else "Cenchrae"
+			if presenti(altro, avv) - presenti(altro, avv, "N") > 0:
+				istmo = altro
+		if istmo != "" or not forze.is_empty():
+			var fz: String = istmo if istmo != "" else forze[rng.randi_range(0, forze.size() - 1)]
+			var di := 6 if istmo != "" else d6()
+			if istmo != "":
+				nota("op", "Attraverso l'Istmo la forza di %s intercetta automaticamente." % Dati.nome(istmo))
 			if di >= 4:
 				intercettata = true
 				if not _scontro(fz, b, di):
@@ -850,7 +857,7 @@ func muovi(dest: String, verso_ob: bool) -> bool:
 				nota("op", "A %s l'intercettazione da %s fallisce (dado %d)." % [Dati.nome(b), Dati.nome(fz), di])
 		if verso_ob and era_nemico and not intercettata and presenti(b, avv) == 0 and not sp(b).dev:
 			sp(b).dev = true
-			nota("op", "%s viene devastata." % Dati.nome(b))
+			nota("op", "%s viene saccheggiata." % Dati.nome(b))
 	return op.pos == dest
 
 ## Intercettazione riuscita: scaramuccia ed eventuale battaglia. Falso se l'operazione finisce.
@@ -862,9 +869,14 @@ func _scontro(fz: String, qui: String, dado_int: int) -> bool:
 		op.annullata = true
 		return false
 	var ts: String = Dati.spazi[qui].t
+	# gli SP "partecipanti" si contano prima delle perdite della schermaglia (come nell'esempio del manuale)
+	var te := conta(op.u, op.lato) - conta(op.u, op.lato, "N")
+	var ti := presenti(fz, avv) - presenti(fz, avv, "N")
+	var ne := conta(op.u, op.lato, "N")
+	var ni := presenti(fz, avv, "N")
 	var d1 := d6()
 	var d2 := d6()
-	var t := "Intercettata a %s dalle forze di %s (dado %d). Scaramuccia: %s %d, %s %d." % [Dati.nome(qui), Dati.nome(fz), dado_int, nl(op.lato), d1, nl(avv), d2]
+	var t := "Intercettata a %s dalle forze di %s (dado %d). Schermaglia: %s %d, %s %d." % [Dati.nome(qui), Dati.nome(fz), dado_int, nl(op.lato), d1, nl(avv), d2]
 	if d1 == 1:
 		var pp := perdi(op.u, op.lato, 1, ts, "tutto", true)
 		if not pp.is_empty():
@@ -882,10 +894,6 @@ func _scontro(fz: String, qui: String, dado_int: int) -> bool:
 		return false
 	if presenti(fz, avv) == 0:
 		return true
-	var te := conta(op.u, op.lato) - conta(op.u, op.lato, "N")
-	var ti := presenti(fz, avv) - presenti(fz, avv, "N")
-	var ne := conta(op.u, op.lato, "N")
-	var ni := presenti(fz, avv, "N")
 	var batt := d1 + d2 >= 11
 	if ts != "I" and te + ti >= 8 and ti * 2 >= te + ti:
 		batt = true
@@ -901,7 +909,7 @@ func _scontro(fz: String, qui: String, dado_int: int) -> bool:
 		nota("op", "La spedizione è respinta: operazione annullata.")
 		return false
 	if op.has("senza_capo"):
-		nota("op", "Senza condottiero la spedizione si ferma a %s." % Dati.nome(qui))
+		nota("op", "Senza comandante la spedizione si ferma a %s." % Dati.nome(qui))
 		_deposita(qui, op.u)
 		op.u = {}
 		op.annullata = true
@@ -926,13 +934,13 @@ func obiettivo_valido(id: String, rib: bool) -> String:
 		return "Il nemico ha degli ostaggi: non puoi puntare sulla sua capitale né sugli spazi adiacenti."
 	if rib:
 		if presenti(id, avv) > 0:
-			return "Non si può fomentare la rivolta dove c'è una forza nemica."
+			return "Non si può Causare Ribellione dove c'è una forza nemica."
 		if id == Dati.CASA[avv] or id in Dati.COALIZIONE[avv] or (avv == "A" and id == "Samos" and not _valido("Chios", "A")):
-			return "Non si può fomentare la rivolta nella capitale o in uno spazio di coalizione del nemico."
+			return "Non si può Causare Ribellione nella capitale o in uno spazio di coalizione del nemico."
 		if id in ["Argos", "Syracuse", "Pela", "Macedonia", "Sardis"]:
 			return "Gli spazi delle potenze minori si ribellano solo per evento."
 		if in_rivolta(id):
-			return "Lo spazio è già in rivolta."
+			return "Lo spazio è già in ribellione."
 		if lato_colore(id) == g:
 			return "È uno spazio della tua lega."
 		if spendibile(g) < 100:
@@ -953,22 +961,22 @@ func g_inizia(ob: String, rib: bool, capo: String) -> String:
 	if e != "":
 		return e
 	if not capi_casa(s.lato_g).has(capo):
-		return "Il condottiero deve essere nella capitale."
+		return "Il comandante deve essere nella capitale."
 	s.riepilogo = []
 	_op_nuova(s.lato_g, ob, capo, false)
 	op.rib = rib
 	s.op_fatte[s.lato_g] += 1
-	nota("op", "%s: %s guida una spedizione verso %s%s." % [nl(op.lato), Dati.capo_nome(capo), Dati.nome(ob), " per fomentare la rivolta" if rib else ""])
+	nota("op", "%s: %s guida una spedizione verso %s%s." % [nl(op.lato), Dati.capo_nome(capo), Dati.nome(ob), " per Causare Ribellione" if rib else ""])
 	if rib:
 		s.tes[op.lato] -= 100
 		var d := d6()
 		if d < 6:
-			nota("op", "Fomentare la rivolta a %s (100 talenti, dado %d): fallita. Operazione annullata." % [Dati.nome(ob), d])
+			nota("op", "Causare Ribellione a %s (100 talenti, dado %d): fallita. Operazione annullata." % [Dati.nome(ob), d])
 			op = {}
 			_dopo_op(s.lato_g)
 			return ""
 		sp(ob).riv = true
-		nota("op", "Fomentare la rivolta a %s (100 talenti, dado %d): %s insorge." % [Dati.nome(ob), d, Dati.nome(ob)])
+		nota("op", "Causare Ribellione a %s (100 talenti, dado %d): %s insorge." % [Dati.nome(ob), d, Dati.nome(ob)])
 	s.attesa = {"tipo": "raduno"}
 	return ""
 
@@ -1131,7 +1139,7 @@ func _obiettivo_matrice() -> Dictionary:
 						mancanti.append(x)
 				if mancanti.size() == 1:
 					ob = mancanti[0]
-					testo = "manca un solo spazio per la rivolta degli iloti"
+					testo = "manca un solo spazio per la Ribellione degli Iloti"
 		if ctrl(ob) == np:
 			continue
 		if ob == "Sardis" and not s.persia:
@@ -1222,24 +1230,24 @@ func _np_operazione(iniziale: bool) -> void:
 		return
 	var motivo := ""
 	if s.op_fatte[np] >= s.max_op[np]:
-		motivo = "i prodigi fermano le operazioni"
+		motivo = "il fenomeno ferma le operazioni"
 	if motivo == "" and not iniziale:
 		var d := d6()
 		if d + 1 >= 6:
-			motivo = "gli auspici sono sfavorevoli (dado %d+1)" % d
+			motivo = "gli auguri sono sfavorevoli (dado %d+1)" % d
 		else:
-			nota("op", "%s consulta gli auspici: favorevoli (dado %d+1)." % [nl(np), d])
+			nota("op", "%s consulta gli auguri: favorevoli (dado %d+1)." % [nl(np), d])
 			if capi_casa(np).is_empty():
 				var cp := coppa(np)
 				if cp.is_empty():
-					motivo = "non restano condottieri"
+					motivo = "non restano comandanti"
 				else:
 					var c: String = cp[rng.randi_range(0, cp.size() - 1)]
 					_capo_in(c, Dati.CASA[np])
 					nota("op", "%s affida il comando a %s." % [nl(np), Dati.capo_nome(c)])
 	var capo := _np_capo()
 	if motivo == "" and capo == "":
-		motivo = "non c'è un condottiero nella capitale"
+		motivo = "non c'è un comandante nella capitale"
 	var scelta := {}
 	var piano = null
 	var difesa := false
@@ -1253,7 +1261,7 @@ func _np_operazione(iniziale: bool) -> void:
 			if scelta.is_empty():
 				motivo = "non trova un obiettivo valido"
 			else:
-				nota("op", "%s, strategia \"%s\": obiettivo %s (%s)." % [nl(np), Dati.NOME_STRATEGIA[s.strategia[np]], Dati.nome(scelta.ob), scelta.testo])
+				nota("op", "%s, strategia \"%s\": obiettivo %s (%s)." % [nl(np), Dati.nome_strategia(s.strategia[np], np), Dati.nome(scelta.ob), scelta.testo])
 	if motivo == "":
 		var extra := 100 if (not difesa and s.strategia[np] == "rivolta") else 0
 		piano = _piano(scelta.forza)
@@ -1275,13 +1283,13 @@ func _np_operazione(iniziale: bool) -> void:
 		s.tes[np] -= 100
 		var dr := d6()
 		if dr + 2 < 6:
-			nota("op", "Fomentare la rivolta a %s (100 talenti, dado %d+2): fallita. Operazione annullata." % [Dati.nome(op.ob), dr])
+			nota("op", "Causare Ribellione a %s (100 talenti, dado %d+2): fallita. Operazione annullata." % [Dati.nome(op.ob), dr])
 			op = {}
 			_dopo_op(np)
 			s.attesa = {"tipo": "continua", "titolo": "Operazione di %s" % nl(np)}
 			return
 		sp(op.ob).riv = true
-		nota("op", "Fomentare la rivolta a %s (100 talenti, dado %d+2): %s insorge." % [Dati.nome(op.ob), dr, Dati.nome(op.ob)])
+		nota("op", "Causare Ribellione a %s (100 talenti, dado %d+2): %s insorge." % [Dati.nome(op.ob), dr, Dati.nome(op.ob)])
 		piano = _piano(scelta.forza)
 		if piano == null:
 			piano = []
@@ -1379,24 +1387,24 @@ func _g_turno_op(iniziale: bool) -> void:
 		return
 	var motivo := ""
 	if s.op_fatte[g] >= s.max_op[g]:
-		motivo = "i prodigi fermano le operazioni"
+		motivo = "il fenomeno ferma le operazioni"
 	if motivo == "" and not iniziale:
 		var bonus := capi_sulla_mappa(g) / 2
 		var d := d6()
 		if d + bonus >= 6:
-			motivo = "gli auspici sono sfavorevoli (dado %d+%d)" % [d, bonus]
+			motivo = "gli auguri sono sfavorevoli (dado %d+%d)" % [d, bonus]
 		else:
-			nota("op", "%s consulta gli auspici: favorevoli (dado %d+%d)." % [nl(g), d, bonus])
+			nota("op", "%s consulta gli auguri: favorevoli (dado %d+%d)." % [nl(g), d, bonus])
 			if capi_casa(g).is_empty():
 				var cp := coppa(g)
 				if cp.is_empty():
-					motivo = "non restano condottieri"
+					motivo = "non restano comandanti"
 				else:
 					var c: String = cp[rng.randi_range(0, cp.size() - 1)]
 					_capo_in(c, Dati.CASA[g])
-					nota("op", "Estratto dalla coppa: %s." % Dati.capo_nome(c))
+					nota("op", "Pescato dalla tazza: %s." % Dati.capo_nome(c))
 	if motivo == "" and capi_casa(g).is_empty():
-		motivo = "non c'è un condottiero nella capitale"
+		motivo = "non c'è un comandante nella capitale"
 	if motivo != "":
 		s.passato[g] = true
 		nota("op", "%s deve passare: %s." % [nl(g), motivo])
@@ -1431,22 +1439,22 @@ func _politica() -> void:
 			s.lato_g = Dati.AVV[g]
 			s.cambiato = true
 			s.cambi += 1
-			nota("ev", "Cambio di schieramento (dado %d + fiducia %d): ora comandi %s." % [d, s.sci[g], nl(s.lato_g)])
+			nota("ev", "Cambio di parte (dado %d + SCI %d): ora comandi %s." % [d, s.sci[g], nl(s.lato_g)])
 			if s.scenario == "archidamo" and s.lato_g == "A":
 				_fine("Sei tornato al comando di Atene: la Guerra archidamica si chiude qui.")
 				return
 		else:
-			nota("ev", "Resti al comando di %s (dado %d + fiducia %d, serviva 6)." % [nl(g), d, s.sci[g]])
+			nota("ev", "Resti al comando di %s (dado %d + SCI %d, serviva 6)." % [nl(g), d, s.sci[g]])
 	else:
-		nota("ev", "Fiducia negativa: resti al comando di %s." % nl(g))
+		nota("ev", "SCI negativo: resti al comando di %s." % nl(g))
 	_evento_segmento()
 	if s.sci.A <= 0 or s.navi_perse_prec >= 4:
-		nota("ev", "Rivolta nella Lega delio-attica (%s)." % ("fiducia di Atene a zero o meno" if s.sci.A <= 0 else "4 o più punti di navi persi nel turno scorso"))
+		nota("ev", "Ribellione della Lega di Delo (%s)." % ("SCI di Atene a zero o meno" if s.sci.A <= 0 else "4 o più punti di navi persi nel turno scorso"))
 		_rivolta_delia()
 	for lato in ["A", "S"]:
 		var cp := coppa(lato)
 		if cp.is_empty():
-			nota("ev", "%s non ha più condottieri nella coppa." % nl(lato))
+			nota("ev", "%s non ha più comandanti nella tazza." % nl(lato))
 			continue
 		var c: String = cp[rng.randi_range(0, cp.size() - 1)]
 		_capo_in(c, Dati.CASA[lato])
@@ -1480,7 +1488,7 @@ func _evento(n: int, annuncia: bool) -> bool:
 			s.bel_malus.A += 2
 			s.tes.A += 100
 			s.eisfora_no = true
-			nota("ev", "Evento 3, %s: bellicosità di Atene -2, +100 talenti, niente eisphora in questo turno, due rivolte." % Dati.NOME_EVENTO[3])
+			nota("ev", "Evento 3, %s: bellicosità di Atene -2, +100 talenti, niente eisphora in questo turno, due ribellioni." % Dati.NOME_EVENTO[3])
 			_rivolta_delia()
 			_rivolta_delia()
 		4:
@@ -1499,18 +1507,19 @@ func _evento(n: int, annuncia: bool) -> bool:
 			if s.ev6 or not s.attica_prec:
 				return false
 			s.ev6 = true
-			var tolti := 0
+			var tot_h: int = unita("Athens").get("AH", 0) + unita("Piraeus").get("AH", 0)
+			var tolti := int(ceil(tot_h / 3.0))
+			var da_togliere := tolti
 			for id in ["Athens", "Piraeus"]:
-				var h: int = unita(id).get("AH", 0)
-				var q := int(ceil(h / 3.0))
-				for i in q:
+				while da_togliere > 0 and unita(id).get("AH", 0) > 0:
 					_togli(sp(id).u, "AH")
 					_registra_perdita("AH")
-				tolti += q
+					da_togliere -= 1
+				_sistema_attivate(id)
 			var navi := 0
 			for id in s.sp:
 				navi += unita(id).get("AN", 0)
-			var costo := int(ceil(navi * 200 / 4.0))
+			var costo := int(ceil(navi / 4.0)) * 200
 			s.tes.A = max(0, s.tes.A - costo)
 			if s.capi.pericles.stato != "morto":
 				s.capi.pericles = {"stato": "morto", "pos": ""}
@@ -1529,7 +1538,7 @@ func _evento(n: int, annuncia: bool) -> bool:
 					nota("ev", "Evento 7, Alcibiade fugge a Sardi, presso i Persiani: resta il +1 al dado della strategia spartana.")
 				3:
 					s.capi.alcibiades = {"stato": "mappa", "pos": "Athens"}
-					nota("ev", "Evento 7, Alcibiade torna ad Atene come condottiero.")
+					nota("ev", "Evento 7, Alcibiade torna ad Atene come comandante.")
 				4:
 					s.capi.alcibiades = {"stato": "morto", "pos": ""}
 					nota("ev", "Evento 7, Alcibiade va in esilio volontario ed esce dal gioco.")
@@ -1567,7 +1576,7 @@ func _evento(n: int, annuncia: bool) -> bool:
 				nota("ev", "Evento 10, Corcira diventa neutrale: i suoi alleati escono dal gioco e non è più uno spazio di coalizione ateniese.")
 		11:
 			s.ev_morti = true
-			nota("ev", "Evento 11, %s: in ogni battaglia di questo turno, con un dado non modificato da 1 a 3, il condottiero muore." % Dati.NOME_EVENTO[11])
+			nota("ev", "Evento 11, %s: in ogni battaglia di questo turno, con un dado non modificato da 1 a 3, il comandante muore." % Dati.NOME_EVENTO[11])
 		12:
 			var d2 := d6()
 			var lato2 := "A" if d2 <= 3 else "S"
@@ -1621,7 +1630,7 @@ func _strategia() -> void:
 	var capo_casa := capi_casa(np)
 	var blocco: bool = s.ostaggi[s.lato_g] and not s.tregua_fatta
 	if s.sci[np] > 0 and not s.cambiato and s.strategia[np] != "" and not (blocco and s.strategia[np] == "attacco"):
-		nota("ev", "%s mantiene la strategia \"%s\" (fiducia positiva)." % [nl(np), Dati.NOME_STRATEGIA[s.strategia[np]]])
+		nota("ev", "%s mantiene la strategia \"%s\" (SCI positivo)." % [nl(np), Dati.nome_strategia(s.strategia[np], np)])
 	else:
 		var mod := 0
 		if not capo_casa.is_empty():
@@ -1635,7 +1644,7 @@ func _strategia() -> void:
 			if st == "attacco" and blocco:
 				continue
 			s.strategia[np] = st
-			nota("ev", "Strategia di %s (dado %d%+d = %d): %s." % [nl(np), d, mod, r, Dati.NOME_STRATEGIA[st]])
+			nota("ev", "Strategia di %s (dado %d%+d = %d): %s." % [nl(np), d, mod, r, Dati.nome_strategia(st, np)])
 			break
 	s.sci = {"A": 0, "S": 0}
 	s.passo = "op_g_iniziale"
@@ -1783,7 +1792,7 @@ func _combattimento() -> void:
 							_togli(x.u, k, n)
 				nota("op", "%s a %s (dado %d%+d): l'armata torna a casa lasciando una guarnigione di 1 punto." % [Dati.capo_nome(cc[0]), Dati.nome(id), d, st])
 			else:
-				nota("op", "%s a %s (dado %d%+d): l'armata resta sul posto, il condottiero rientra." % [Dati.capo_nome(cc[0]), Dati.nome(id), d, st])
+				nota("op", "%s a %s (dado %d%+d): l'armata resta sul posto, il comandante rientra." % [Dati.capo_nome(cc[0]), Dati.nome(id), d, st])
 			for c in cc:
 				_capo_a_casa(c)
 			_sistema_attivate(id)
@@ -1795,7 +1804,7 @@ func _combattimento() -> void:
 		for id in Dati.ILOTI:
 			if ctrl(id) == "S" and presenti(id, "S") > 0:
 				s.iloti = false
-				nota("ev", "Sparta riprende %s: la rivolta degli iloti è domata." % Dati.nome(id))
+				nota("ev", "Sparta riprende %s: la Ribellione degli Iloti è sedata." % Dati.nome(id))
 				break
 	if s.persia and not s.iaso and presenti("Iasus", "S") > 0 and presenti("Iasus", "A") == 0:
 		s.iaso = true
@@ -1877,7 +1886,7 @@ func _assedio(id: String) -> void:
 # ------------------------------------------------------------------ rivolte
 func _rivolte() -> void:
 	s.riepilogo = []
-	nota("fase", "Fase delle rivolte.")
+	nota("fase", "Fase di diffusione della ribellione.")
 	var in_riv := []
 	for id in s.sp.keys():
 		if s.sp[id].riv:
@@ -1889,7 +1898,7 @@ func _rivolte() -> void:
 				continue
 			if not copre(c, id).is_empty() and copre(Dati.AVV[c], id).is_empty():
 				s.sp[id].riv = false
-				nota("ev", "La rivolta di %s è domata." % Dati.nome(id))
+				nota("ev", "La ribellione di %s è sedata." % Dati.nome(id))
 			else:
 				in_riv.append(id)
 	if not s.get("in_tregua", false):
@@ -1907,7 +1916,7 @@ func _rivolte() -> void:
 			var m := 2 if not copre(Dati.AVV[c2], b).is_empty() else 0
 			if d + m >= 6:
 				sp(b).riv = true
-				nota("ev", "La rivolta si estende a %s (dado %d%+d)." % [Dati.nome(b), d, m])
+				nota("ev", "La ribellione si diffonde a %s (dado %d%+d)." % [Dati.nome(b), d, m])
 	if s.get("samo_coalizione", false) and _valido("Chios", "A") and s.sp.has("Samos"):
 		s["samo_coalizione"] = false
 		var sm := sp("Samos")
@@ -1934,10 +1943,10 @@ func _rivolte() -> void:
 				_togli(sp("Sparta").u, "SH")
 				_registra_perdita("SH")
 			s.iloti_malus = 500
-			nota("ev", "Rivolta degli iloti: bellicosità di Sparta -2, %d punti di opliti spartani eliminati, 500 talenti di entrate in meno." % q)
+			nota("ev", "Ribellione degli Iloti: bellicosità di Sparta -2, %d punti di opliti spartani eliminati, 500 talenti di entrate in meno." % q)
 		else:
 			s.iloti_malus = 1000
-			nota("ev", "La rivolta degli iloti continua: bellicosità di Sparta -2 e 1000 talenti di entrate in meno.")
+			nota("ev", "La Ribellione degli Iloti continua: bellicosità di Sparta -2 e 1000 talenti di entrate in meno.")
 	s.passo = "amministrazione"
 
 # ------------------------------------------------------------------ amministrazione
@@ -1953,7 +1962,7 @@ func entrate(lato: String, tregua: bool = false) -> Dictionary:
 		if (x.get("dev", false) and not tregua) or x.get("riv", false) or ctrl(id) == Dati.AVV[lato]:
 			n += 1
 	if n > 0:
-		voci.append(["%d spazi devastati, in rivolta o in mano nemica" % n if n > 1 else "1 spazio devastato, in rivolta o in mano nemica", -50 * n])
+		voci.append(["%d spazi saccheggiati, in ribellione o in mano nemica" % n if n > 1 else "1 spazio saccheggiato, in ribellione o in mano nemica", -50 * n])
 	if lato == "S":
 		for id in ["Thebes", "Corinth"]:
 			if ctrl(id) == "A":
@@ -1963,7 +1972,7 @@ func entrate(lato: String, tregua: bool = false) -> Dictionary:
 		if s.persia:
 			voci.append(["Oro persiano", 1000 if s.iaso else 500])
 		if s.iloti_malus > 0 and not tregua:
-			voci.append(["Rivolta degli iloti", -s.iloti_malus])
+			voci.append(["Ribellione degli Iloti", -s.iloti_malus])
 	else:
 		if ctrl("Syracuse") == "A" and presenti("Syracuse", "A") > 0:
 			var tutta := true
@@ -2080,17 +2089,17 @@ func spazi_persi(lato: String) -> int:
 	return n
 
 func _tregua_resa() -> void:
-	nota("fase", "Tregua e resa.")
+	nota("fase", "Armistizio e resa.")
 	for lato in ["A", "S"]:
 		var prima: int = s.bel[lato]
 		var b := prima
 		var p := []
 		if s.sci[lato] < 0:
 			b += s.sci[lato]
-			p.append("fiducia %d" % s.sci[lato])
+			p.append("SCI %d" % s.sci[lato])
 		elif s.sci[lato] > 1:
 			b += s.sci[lato] / 2
-			p.append("fiducia %+d" % (s.sci[lato] / 2))
+			p.append("SCI %+d" % (s.sci[lato] / 2))
 		var q := spazi_persi(lato) / 10
 		if q > 0:
 			b -= q
@@ -2121,9 +2130,9 @@ func _tregua() -> void:
 	var d := d6()
 	var n := int(ceil((d + (1 if s.nicia else 0)) / 2.0))
 	s["tregua_turni"] = n
-	nota("ev", "Tregua! Entrambi i contendenti sono stremati (dado %d%s): la pace dura %d turni." % [d, " +1 per Nicia" if s.nicia else "", n])
+	nota("ev", "Armistizio! Entrambi i contendenti sono stremati (dado %d%s): la pace dura %d turni." % [d, " +1 per Nicia" if s.nicia else "", n])
 	if s.scenario == "archidamo":
-		_fine("La tregua chiude la Guerra archidamica.")
+		_fine("L'armistizio chiude la Guerra archidamica.")
 		return
 	s["rientri"] = {}
 	s["conta_rientri"] = {}
@@ -2142,7 +2151,7 @@ func _tregua() -> void:
 	for lato in ["A", "S"]:
 		var e := entrate(lato, true)
 		s.tes[lato] += e.totale * n
-		nota("ev", "Entrate di %s durante la tregua: %d talenti. Tesoro %d." % [nl(lato), e.totale * n, s.tes[lato]])
+		nota("ev", "Entrate di %s durante l'armistizio: %d talenti. Tesoro %d." % [nl(lato), e.totale * n, s.tes[lato]])
 	var np := _np()
 	var k := "SN" if np == "S" else "AH"
 	var fatti := 0
@@ -2163,7 +2172,7 @@ func _tregua_fine() -> void:
 	s.bel = {"A": b, "S": b}
 	s["in_tregua"] = false
 	s.turno += s.tregua_turni
-	nota("ev", "Finita la tregua, la bellicosità di entrambi torna a %d. La guerra riprende." % b)
+	nota("ev", "Finito l'armistizio, la bellicosità di entrambi torna a %d. La guerra riprende." % b)
 
 func _fine_turno() -> void:
 	for id in s.sp.keys():
