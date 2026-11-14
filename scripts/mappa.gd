@@ -27,6 +27,7 @@ var _trascinato := 0.0
 var _ultimo_mouse := Vector2.ZERO
 var _dist_pizzico := 0.0
 var _tempo := 0.0
+var _ultimo_tocco := -10.0     # per ignorare il mouse emulato dal tocco
 
 func _ready() -> void:
 	Dati.carica()
@@ -97,6 +98,11 @@ func _zoom_su(punto_schermo: Vector2, fattore: float) -> void:
 
 # ------------------------------------------------------------------ ingresso
 func _gui_input(ev: InputEvent) -> void:
+	if ev is InputEventScreenTouch or ev is InputEventScreenDrag:
+		_ultimo_tocco = _tempo
+	elif (ev is InputEventMouseButton or ev is InputEventMouseMotion) and (not _tocchi.is_empty() or _tempo - _ultimo_tocco < 0.6):
+		accept_event()
+		return
 	if ev is InputEventScreenTouch:
 		if ev.pressed:
 			_tocchi[ev.index] = ev.position

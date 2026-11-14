@@ -265,7 +265,10 @@ func _carica_online(c: String) -> void:
 	stato_rete.text = "Cerco la partita %s..." % c
 	var d = await net.carica_partita(c)
 	if d == null or not d.has("stato"):
-		stato_rete.text = "Partita non trovata, o rete non raggiungibile. %s" % net.ultimo_errore
+		if net.ultimo_errore.begins_with("errore 401"):
+			stato_rete.text = "Firebase non ha ancora le regole per questo gioco: vanno incollate nella console (firebase/database.rules.json della ludoteca)."
+		else:
+			stato_rete.text = "Partita non trovata, o rete non raggiungibile."
 		return
 	partita = Partita.new()
 	partita.importa(d.stato)
@@ -284,8 +287,10 @@ func _salva_locale() -> void:
 		f.store_string(JSON.stringify(_dati_salvataggio()))
 		f.close()
 
-func _salva() -> void:
+func _salva(forza: bool = false) -> void:
 	_salva_locale()
+	if _rete_negata and not forza:
+		return
 	_da_salvare = true
 	if not _salvataggio_in_corso:
 		_salva_online()
@@ -295,11 +300,15 @@ func _salva_online() -> void:
 	while _da_salvare:
 		_da_salvare = false
 		var ok: bool = await net.salva_partita(codice, _dati_salvataggio())
-		if is_instance_valid(barra_comando):
-			_rete_esito = "online" if ok else ("locale" if net.offline else "non riuscito")
+		_rete_esito = "online" if ok else ("locale" if net.offline else "non riuscito")
+		if not ok and net.ultimo_errore.begins_with("errore 401"):
+			_rete_negata = true      # mancano le regole: inutile riprovare a ogni mossa
+		elif ok:
+			_rete_negata = false
 	_salvataggio_in_corso = false
 
 var _rete_esito := ""
+var _rete_negata := false
 
 # ------------------------------------------------------------------ schermo di gioco
 func _apri_gioco() -> void:
@@ -922,7 +931,7 @@ func _apri_tabelle() -> void:
 	_finestra("Tabelle", v, 1000)
 
 func _apri_salva() -> void:
-	_salva()
+	_salva(true)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", 10)
 	v.add_child(etichetta("La partita si salva da sola a ogni mossa, su questo dispositivo e online.", 21, INCHIOSTRO, null, 500))
@@ -944,6 +953,8 @@ func _apri_salva() -> void:
 		return
 	if _rete_esito == "online":
 		esito.text = "Salvata online."
+	elif _rete_negata:
+		esito.text = "Salvataggio online non riuscito: Firebase non ha ancora le regole per questo gioco. Basta incollare nella console di Firebase (Realtime Database, Regole) il file firebase/database.rules.json della ludoteca. Intanto la partita resta salvata su questo dispositivo."
 	else:
 		esito.text = "Salvataggio online non riuscito: la partita resta su questo dispositivo. %s" % net.ultimo_errore
 
