@@ -1,0 +1,2644 @@
+{
+ "larghezza": 4080,
+ "altezza": 2640,
+ "eusino": [
+  3778,
+  66
+ ],
+ "spazi": {
+  "Epidamnos": {
+   "nome": "Epidamno",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 151,
+   "y": 298,
+   "l": {
+    "Macedonia": "L",
+    "Sybota": "C",
+    "Corcyra": "S"
+   }
+  },
+  "Macedonia": {
+   "nome": "Macedonia",
+   "c": "Y",
+   "t": "L",
+   "f": 0,
+   "x": 1207,
+   "y": 408,
+   "l": {
+    "Epidamnos": "L",
+    "Pela": "L",
+    "Larisa": "L"
+   }
+  },
+  "Pela": {
+   "nome": "Pella",
+   "c": "Y",
+   "t": "L",
+   "f": 1,
+   "x": 1569,
+   "y": 243,
+   "l": {
+    "Macedonia": "L",
+    "Methone": "L",
+    "Amphipolis": "L",
+    "Olynthus": "L"
+   }
+  },
+  "Sybota": {
+   "nome": "Sibota",
+   "c": "Y",
+   "t": "C",
+   "f": 1,
+   "x": 550,
+   "y": 789,
+   "l": {
+    "Epidamnos": "C",
+    "Corcyra": "S",
+    "Ambracia": "L",
+    "Anactorium": "S"
+   }
+  },
+  "Ambracia": {
+   "nome": "Ambracia",
+   "c": "R",
+   "t": "L",
+   "f": 1,
+   "x": 836,
+   "y": 939,
+   "l": {
+    "Sybota": "L",
+    "Idomene": "L"
+   }
+  },
+  "Idomene": {
+   "nome": "Idomene",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 946,
+   "y": 1034,
+   "l": {
+    "Ambracia": "L",
+    "Amphilochia": "L",
+    "Olpae": "C"
+   }
+  },
+  "Olpae": {
+   "nome": "Olpe",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 955,
+   "y": 1147,
+   "l": {
+    "Anactorium": "C",
+    "Idomene": "C",
+    "Amphilochia": "L",
+    "Stratus": "L"
+   }
+  },
+  "Amphilochia": {
+   "nome": "Anfilochia",
+   "c": "G",
+   "t": "L",
+   "f": 0,
+   "x": 1202,
+   "y": 1032,
+   "l": {
+    "Idomene": "L",
+    "Dolopia": "L",
+    "Aetolia": "L",
+    "Olpae": "L"
+   }
+  },
+  "Dolopia": {
+   "nome": "Dolopia",
+   "c": "Y",
+   "t": "L",
+   "f": 0,
+   "x": 1421,
+   "y": 990,
+   "l": {
+    "Amphilochia": "L",
+    "Pharsalus": "L",
+    "Aeniania": "L",
+    "Oeta": "L"
+   }
+  },
+  "Pharsalus": {
+   "nome": "Farsalo",
+   "c": "G",
+   "t": "L",
+   "f": 1,
+   "x": 1437,
+   "y": 808,
+   "l": {
+    "Larisa": "L",
+    "Dolopia": "L"
+   }
+  },
+  "Larisa": {
+   "nome": "Larissa",
+   "c": "G",
+   "t": "L",
+   "f": 1,
+   "x": 1577,
+   "y": 680,
+   "l": {
+    "Pharsalus": "L",
+    "Macedonia": "L",
+    "Magnesia": "L"
+   }
+  },
+  "Corcyra": {
+   "nome": "Corcira",
+   "c": "G",
+   "t": "I",
+   "f": 1,
+   "x": 373,
+   "y": 779,
+   "l": {
+    "Epidamnos": "S",
+    "Sybota": "S",
+    "Leucas": "S",
+    "Taras": "S"
+   }
+  },
+  "Methone": {
+   "nome": "Metone",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 1618,
+   "y": 372,
+   "l": {
+    "Pela": "L",
+    "Pydna": "C",
+    "Potidaea": "S"
+   }
+  },
+  "Pydna": {
+   "nome": "Pidna",
+   "c": "Y",
+   "t": "C",
+   "f": 1,
+   "x": 1618,
+   "y": 495,
+   "l": {
+    "Methone": "C",
+    "Magnesia": "C",
+    "Potidaea": "S"
+   }
+  },
+  "Magnesia": {
+   "nome": "Magnesia",
+   "c": "Y",
+   "t": "C",
+   "f": 1,
+   "x": 1731,
+   "y": 609,
+   "l": {
+    "Pydna": "C",
+    "Larisa": "L",
+    "Olizon": "C"
+   }
+  },
+  "Potidaea": {
+   "nome": "Potidea",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 1986,
+   "y": 451,
+   "l": {
+    "Methone": "S",
+    "Olynthus": "C",
+    "Scione": "C",
+    "Pydna": "S"
+   }
+  },
+  "Olynthus": {
+   "nome": "Olinto",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 2091,
+   "y": 370,
+   "l": {
+    "Potidaea": "C",
+    "Pela": "L",
+    "Stagirus": "L",
+    "Dium": "L",
+    "Torone": "C"
+   }
+  },
+  "Stagirus": {
+   "nome": "Stagira",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 2200,
+   "y": 213,
+   "l": {
+    "Amphipolis": "C",
+    "Dium": "C",
+    "Olynthus": "L"
+   }
+  },
+  "Dium": {
+   "nome": "Dion",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 2276,
+   "y": 331,
+   "l": {
+    "Stagirus": "C",
+    "Thyssus": "C",
+    "Olynthus": "L"
+   }
+  },
+  "Thyssus": {
+   "nome": "Tisso",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 2403,
+   "y": 422,
+   "l": {
+    "Dium": "C",
+    "Torone": "S"
+   }
+  },
+  "Torone": {
+   "nome": "Torone",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 2270,
+   "y": 527,
+   "l": {
+    "Olynthus": "C",
+    "Scione": "S",
+    "Thyssus": "S"
+   }
+  },
+  "Scione": {
+   "nome": "Scione",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 2136,
+   "y": 605,
+   "l": {
+    "Potidaea": "C",
+    "Torone": "S",
+    "Sporades": "S"
+   }
+  },
+  "Amphipolis": {
+   "nome": "Anfipoli",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 2235,
+   "y": 100,
+   "l": {
+    "Pela": "L",
+    "Abdera": "C",
+    "Thasos": "S",
+    "Stagirus": "C"
+   }
+  },
+  "Thasos": {
+   "nome": "Taso",
+   "c": "G",
+   "t": "I",
+   "f": 1,
+   "x": 2565,
+   "y": 154,
+   "l": {
+    "Amphipolis": "S",
+    "Abdera": "S",
+    "Samothraki": "S"
+   }
+  },
+  "Abdera": {
+   "nome": "Abdera",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 2737,
+   "y": 75,
+   "l": {
+    "Amphipolis": "C",
+    "Thasos": "S",
+    "Maraneia": "C"
+   }
+  },
+  "Samothraki": {
+   "nome": "Samotracia",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 2965,
+   "y": 288,
+   "l": {
+    "Thasos": "S",
+    "Limnos": "S",
+    "Imbros": "S",
+    "Maraneia": "S"
+   }
+  },
+  "Maraneia": {
+   "nome": "Maronea",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 3163,
+   "y": 213,
+   "l": {
+    "Abdera": "C",
+    "Samothraki": "S",
+    "Cardia": "C"
+   }
+  },
+  "Cardia": {
+   "nome": "Cardia",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 3355,
+   "y": 264,
+   "l": {
+    "Maraneia": "C",
+    "Perinthus": "L",
+    "Elaeus": "C"
+   }
+  },
+  "Perinthus": {
+   "nome": "Perinto",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 3509,
+   "y": 108,
+   "l": {
+    "Cardia": "L",
+    "Proconneus": "S",
+    "Byzantium": "C"
+   }
+  },
+  "Byzantium": {
+   "nome": "Bisanzio",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 3711,
+   "y": 132,
+   "l": {
+    "Perinthus": "C",
+    "Proconneus": "S",
+    "Cyzicus": "C"
+   }
+  },
+  "Proconneus": {
+   "nome": "Proconneso",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 3533,
+   "y": 240,
+   "l": {
+    "Perinthus": "S",
+    "Byzantium": "S",
+    "Cyzicus": "S",
+    "Lampsacus": "S"
+   }
+  },
+  "Cyzicus": {
+   "nome": "Cizico",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 3602,
+   "y": 348,
+   "l": {
+    "Byzantium": "C",
+    "Proconneus": "S",
+    "Lampsacus": "C"
+   }
+  },
+  "Lampsacus": {
+   "nome": "Lampsaco",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 3431,
+   "y": 352,
+   "l": {
+    "Proconneus": "S",
+    "Cyzicus": "C",
+    "Abydos": "C"
+   }
+  },
+  "Abydos": {
+   "nome": "Abido",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 3314,
+   "y": 458,
+   "l": {
+    "Lampsacus": "C",
+    "Elaeus": "S",
+    "Sigeum": "C"
+   }
+  },
+  "Elaeus": {
+   "nome": "Eleunte",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 3206,
+   "y": 449,
+   "l": {
+    "Abydos": "S",
+    "Cardia": "C",
+    "Imbros": "S"
+   }
+  },
+  "Imbros": {
+   "nome": "Imbro",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 3058,
+   "y": 433,
+   "l": {
+    "Samothraki": "S",
+    "Elaeus": "S",
+    "Sigeum": "S",
+    "Tenedos": "S",
+    "Limnos": "S"
+   }
+  },
+  "Tenedos": {
+   "nome": "Tenedo",
+   "c": "G",
+   "t": "I",
+   "f": 1,
+   "x": 3122,
+   "y": 595,
+   "l": {
+    "Imbros": "S",
+    "Methymna": "S",
+    "Sigeum": "S"
+   }
+  },
+  "Sigeum": {
+   "nome": "Sigeo",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 3254,
+   "y": 579,
+   "l": {
+    "Abydos": "C",
+    "Imbros": "S",
+    "Tenedos": "S",
+    "Antandrus": "L"
+   }
+  },
+  "Antandrus": {
+   "nome": "Antandro",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 3368,
+   "y": 788,
+   "l": {
+    "Sigeum": "L",
+    "Methymna": "S",
+    "Cyme": "C",
+    "Arginusae": "S",
+    "Mytilene": "S"
+   }
+  },
+  "Mytilene": {
+   "nome": "Mitilene",
+   "c": "G",
+   "t": "I",
+   "f": 1,
+   "x": 3364,
+   "y": 981,
+   "l": {
+    "Antandrus": "S",
+    "Arginusae": "S",
+    "Methymna": "C"
+   }
+  },
+  "Arginusae": {
+   "nome": "Arginuse",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 3455,
+   "y": 1088,
+   "l": {
+    "Antandrus": "S",
+    "Cyme": "S",
+    "Mytilene": "S",
+    "Chios": "S"
+   }
+  },
+  "Cyme": {
+   "nome": "Cuma",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 3639,
+   "y": 1131,
+   "l": {
+    "Antandrus": "C",
+    "Phocaea": "C",
+    "Arginusae": "S"
+   }
+  },
+  "Methymna": {
+   "nome": "Metimna",
+   "c": "G",
+   "t": "I",
+   "f": 1,
+   "x": 3194,
+   "y": 906,
+   "l": {
+    "Antandrus": "S",
+    "Mytilene": "C",
+    "Chios": "S",
+    "Psara": "S",
+    "Limnos": "S",
+    "Tenedos": "S"
+   }
+  },
+  "Phocaea": {
+   "nome": "Focea",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 3575,
+   "y": 1267,
+   "l": {
+    "Cyme": "C",
+    "Smyrna": "C"
+   }
+  },
+  "Smyrna": {
+   "nome": "Smirne",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 3715,
+   "y": 1377,
+   "l": {
+    "Phocaea": "C",
+    "Sardis": "L",
+    "Colophon": "L",
+    "Clazomenae": "C"
+   }
+  },
+  "Sardis": {
+   "nome": "Sardi",
+   "c": "Y",
+   "t": "L",
+   "f": 1,
+   "x": 3813,
+   "y": 1500,
+   "l": {
+    "Smyrna": "L"
+   }
+  },
+  "Colophon": {
+   "nome": "Colofone",
+   "c": "G",
+   "t": "L",
+   "f": 1,
+   "x": 3644,
+   "y": 1467,
+   "l": {
+    "Smyrna": "L",
+    "Ephesus": "L",
+    "Teos": "L",
+    "Clazomenae": "L"
+   }
+  },
+  "Ephesus": {
+   "nome": "Efeso",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 3677,
+   "y": 1599,
+   "l": {
+    "Colophon": "L",
+    "Pygela": "C",
+    "Samos": "S",
+    "Teos": "C"
+   }
+  },
+  "Clazomenae": {
+   "nome": "Clazomene",
+   "c": "G",
+   "t": "C",
+   "f": 0,
+   "x": 3538,
+   "y": 1377,
+   "l": {
+    "Smyrna": "C",
+    "Colophon": "L",
+    "Erythrae": "C"
+   }
+  },
+  "Erythrae": {
+   "nome": "Eritre",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 3401,
+   "y": 1406,
+   "l": {
+    "Clazomenae": "C",
+    "Teos": "C",
+    "Chios": "S"
+   }
+  },
+  "Pygela": {
+   "nome": "Pigela",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 3792,
+   "y": 1665,
+   "l": {
+    "Ephesus": "C",
+    "Priene": "C",
+    "Samos": "S"
+   }
+  },
+  "Priene": {
+   "nome": "Priene",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 3719,
+   "y": 1750,
+   "l": {
+    "Pygela": "C",
+    "Miletus": "C",
+    "Samos": "S"
+   }
+  },
+  "Teos": {
+   "nome": "Teo",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 3528,
+   "y": 1519,
+   "l": {
+    "Erythrae": "C",
+    "Colophon": "L",
+    "Ephesus": "C",
+    "Samos": "S",
+    "Chios": "S"
+   }
+  },
+  "Miletus": {
+   "nome": "Mileto",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 3743,
+   "y": 1864,
+   "l": {
+    "Priene": "C",
+    "Iasus": "C",
+    "Samos": "S"
+   }
+  },
+  "Samos": {
+   "nome": "Samo",
+   "c": "G",
+   "t": "I",
+   "f": 1,
+   "x": 3591,
+   "y": 1748,
+   "l": {
+    "Teos": "S",
+    "Ephesus": "S",
+    "Pygela": "S",
+    "Priene": "S",
+    "Miletus": "S",
+    "Leros": "S",
+    "Patmos": "S",
+    "Icaros": "S"
+   }
+  },
+  "Iasus": {
+   "nome": "Iaso",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 3793,
+   "y": 1969,
+   "l": {
+    "Miletus": "C",
+    "Halicarnassus": "C"
+   }
+  },
+  "Halicarnassus": {
+   "nome": "Alicarnasso",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 3806,
+   "y": 2095,
+   "l": {
+    "Iasus": "C",
+    "Cnidus": "C",
+    "Kos": "S",
+    "Kaliminos": "S"
+   }
+  },
+  "Cnidus": {
+   "nome": "Cnido",
+   "c": "G",
+   "t": "C",
+   "f": 0,
+   "x": 3858,
+   "y": 2314,
+   "l": {
+    "Halicarnassus": "C",
+    "Loryma": "C",
+    "Syme": "S",
+    "Triopium": "C"
+   }
+  },
+  "Loryma": {
+   "nome": "Lorima",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 3818,
+   "y": 2450,
+   "l": {
+    "Cnidus": "C",
+    "Syme": "S"
+   }
+  },
+  "Lindus": {
+   "nome": "Lindo",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 3683,
+   "y": 2558,
+   "l": {
+    "Syme": "S",
+    "Camirus": "C"
+   }
+  },
+  "Camirus": {
+   "nome": "Camiro",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 3584,
+   "y": 2511,
+   "l": {
+    "Syme": "S",
+    "Lindus": "C",
+    "Chalce": "S"
+   }
+  },
+  "Chalce": {
+   "nome": "Calce",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 3590,
+   "y": 2406,
+   "l": {
+    "Syme": "S",
+    "Camirus": "S",
+    "Kos": "S",
+    "Triopium": "S"
+   }
+  },
+  "Triopium": {
+   "nome": "Triopio",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 3743,
+   "y": 2314,
+   "l": {
+    "Cnidus": "C",
+    "Syme": "S",
+    "Chalce": "S",
+    "Kos": "S"
+   }
+  },
+  "Syme": {
+   "nome": "Simi",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 3723,
+   "y": 2413,
+   "l": {
+    "Triopium": "S",
+    "Cnidus": "S",
+    "Loryma": "S",
+    "Lindus": "S",
+    "Camirus": "S",
+    "Chalce": "S"
+   }
+  },
+  "Astipal": {
+   "nome": "Astipalea",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 3409,
+   "y": 2398,
+   "l": {
+    "Amorgos": "S",
+    "Kos": "S"
+   }
+  },
+  "Kos": {
+   "nome": "Coo",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 3648,
+   "y": 2268,
+   "l": {
+    "Astipal": "S",
+    "Kaliminos": "S",
+    "Halicarnassus": "S",
+    "Triopium": "S",
+    "Chalce": "S"
+   }
+  },
+  "Kaliminos": {
+   "nome": "Calimno",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 3674,
+   "y": 2138,
+   "l": {
+    "Leros": "S",
+    "Halicarnassus": "S",
+    "Kos": "S"
+   }
+  },
+  "Leros": {
+   "nome": "Lero",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 3582,
+   "y": 2059,
+   "l": {
+    "Samos": "S",
+    "Kaliminos": "S",
+    "Patmos": "S"
+   }
+  },
+  "Patmos": {
+   "nome": "Patmo",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 3479,
+   "y": 1980,
+   "l": {
+    "Samos": "S",
+    "Leros": "S",
+    "Amorgos": "S"
+   }
+  },
+  "Limnos": {
+   "nome": "Lemno",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 2798,
+   "y": 590,
+   "l": {
+    "Samothraki": "S",
+    "Imbros": "S",
+    "Methymna": "S",
+    "Skiros": "S"
+   }
+  },
+  "Sporades": {
+   "nome": "Sporadi",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 2231,
+   "y": 987,
+   "l": {
+    "Olizon": "S",
+    "Skiros": "S",
+    "Scione": "S"
+   }
+  },
+  "Skiros": {
+   "nome": "Sciro",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 2527,
+   "y": 1185,
+   "l": {
+    "Sporades": "S",
+    "Limnos": "S",
+    "Psara": "S"
+   }
+  },
+  "Psara": {
+   "nome": "Psara",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 3001,
+   "y": 1265,
+   "l": {
+    "Skiros": "S",
+    "Methymna": "S",
+    "Chios": "S"
+   }
+  },
+  "Chios": {
+   "nome": "Chio",
+   "c": "G",
+   "t": "I",
+   "f": 1,
+   "x": 3232,
+   "y": 1385,
+   "l": {
+    "Psara": "S",
+    "Methymna": "S",
+    "Arginusae": "S",
+    "Erythrae": "S",
+    "Teos": "S",
+    "Icaros": "S",
+    "Andros": "S"
+   }
+  },
+  "Icaros": {
+   "nome": "Icaria",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 3307,
+   "y": 1852,
+   "l": {
+    "Chios": "S",
+    "Samos": "S",
+    "Naxos": "S",
+    "Mikonos": "S"
+   }
+  },
+  "Amorgos": {
+   "nome": "Amorgo",
+   "c": "G",
+   "t": "I",
+   "f": 1,
+   "x": 3199,
+   "y": 2260,
+   "l": {
+    "Naxos": "S",
+    "Patmos": "S",
+    "Astipal": "S",
+    "Thera": "S"
+   }
+  },
+  "Thera": {
+   "nome": "Tera",
+   "c": "R",
+   "t": "I",
+   "f": 0,
+   "x": 2994,
+   "y": 2488,
+   "l": {
+    "Ios": "S",
+    "Amorgos": "S"
+   }
+  },
+  "Ios": {
+   "nome": "Io",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 2955,
+   "y": 2363,
+   "l": {
+    "Melos": "S",
+    "Paros": "S",
+    "Naxos": "S",
+    "Thera": "S"
+   }
+  },
+  "Lilybaeum": {
+   "nome": "Lilibeo",
+   "c": "Y",
+   "t": "C",
+   "f": 1,
+   "x": 71,
+   "y": 2347,
+   "l": {
+    "Panormus Sicily": "C",
+    "Segesta": "L",
+    "Selinus": "C"
+   }
+  },
+  "Panormus Sicily": {
+   "nome": "Palermo",
+   "c": "Y",
+   "t": "C",
+   "f": 1,
+   "x": 287,
+   "y": 2262,
+   "l": {
+    "Lilybaeum": "C",
+    "Himera": "C",
+    "Segesta": "L"
+   }
+  },
+  "Selinus": {
+   "nome": "Selinunte",
+   "c": "Y",
+   "t": "C",
+   "f": 1,
+   "x": 155,
+   "y": 2442,
+   "l": {
+    "Lilybaeum": "C",
+    "Segesta": "L",
+    "Acragas": "C"
+   }
+  },
+  "Gela": {
+   "nome": "Gela",
+   "c": "Y",
+   "t": "C",
+   "f": 1,
+   "x": 362,
+   "y": 2525,
+   "l": {
+    "Acragas": "C",
+    "Enna": "L",
+    "Leontini": "L",
+    "Camarina": "C"
+   }
+  },
+  "Acragas": {
+   "nome": "Agrigento",
+   "c": "Y",
+   "t": "C",
+   "f": 1,
+   "x": 274,
+   "y": 2476,
+   "l": {
+    "Selinus": "C",
+    "Segesta": "L",
+    "Enna": "L",
+    "Gela": "C"
+   }
+  },
+  "Segesta": {
+   "nome": "Segesta",
+   "c": "Y",
+   "t": "L",
+   "f": 1,
+   "x": 254,
+   "y": 2365,
+   "l": {
+    "Lilybaeum": "L",
+    "Panormus Sicily": "L",
+    "Enna": "L",
+    "Acragas": "L",
+    "Selinus": "L"
+   }
+  },
+  "Enna": {
+   "nome": "Enna",
+   "c": "Y",
+   "t": "L",
+   "f": 1,
+   "x": 398,
+   "y": 2412,
+   "l": {
+    "Segesta": "L",
+    "Himera": "L",
+    "Leontini": "L",
+    "Gela": "L",
+    "Acragas": "L"
+   }
+  },
+  "Leontini": {
+   "nome": "Leontini",
+   "c": "Y",
+   "t": "L",
+   "f": 1,
+   "x": 529,
+   "y": 2472,
+   "l": {
+    "Enna": "L",
+    "Camarina": "L",
+    "Gela": "L",
+    "Catana": "L",
+    "Syracuse": "L",
+    "Helorus": "L"
+   }
+  },
+  "Camarina": {
+   "nome": "Camarina",
+   "c": "Y",
+   "t": "C",
+   "f": 1,
+   "x": 473,
+   "y": 2573,
+   "l": {
+    "Gela": "C",
+    "Leontini": "L",
+    "Helorus": "C"
+   }
+  },
+  "Helorus": {
+   "nome": "Eloro",
+   "c": "Y",
+   "t": "C",
+   "f": 1,
+   "x": 585,
+   "y": 2571,
+   "l": {
+    "Camarina": "C",
+    "Syracuse": "C",
+    "Leontini": "L"
+   }
+  },
+  "Syracuse": {
+   "nome": "Siracusa",
+   "c": "Y",
+   "t": "C",
+   "f": 1,
+   "x": 654,
+   "y": 2483,
+   "l": {
+    "Leontini": "L",
+    "Catana": "C",
+    "Helorus": "C",
+    "Cape Taenarum": "S"
+   }
+  },
+  "Himera": {
+   "nome": "Imera",
+   "c": "Y",
+   "t": "C",
+   "f": 1,
+   "x": 453,
+   "y": 2281,
+   "l": {
+    "Panormus Sicily": "C",
+    "Liparian Is.": "S",
+    "Messina": "C",
+    "Enna": "L"
+   }
+  },
+  "Liparian Is.": {
+   "nome": "Isole Lipari",
+   "c": "Y",
+   "t": "I",
+   "f": 0,
+   "x": 552,
+   "y": 2174,
+   "l": {
+    "Himera": "S",
+    "Messina": "S",
+    "Rhegium": "S"
+   }
+  },
+  "Catana": {
+   "nome": "Catania",
+   "c": "Y",
+   "t": "C",
+   "f": 1,
+   "x": 614,
+   "y": 2373,
+   "l": {
+    "Messina": "C",
+    "Syracuse": "C",
+    "Leontini": "L"
+   }
+  },
+  "Messina": {
+   "nome": "Messina",
+   "c": "Y",
+   "t": "C",
+   "f": 1,
+   "x": 608,
+   "y": 2274,
+   "l": {
+    "Himera": "C",
+    "Liparian Is.": "S",
+    "Rhegium": "S",
+    "Catana": "C"
+   }
+  },
+  "Rhegium": {
+   "nome": "Reggio",
+   "c": "Y",
+   "t": "C",
+   "f": 1,
+   "x": 725,
+   "y": 2298,
+   "l": {
+    "Messina": "S",
+    "Liparian Is.": "S",
+    "Locri": "C"
+   }
+  },
+  "Locri": {
+   "nome": "Locri",
+   "c": "Y",
+   "t": "C",
+   "f": 1,
+   "x": 819,
+   "y": 2248,
+   "l": {
+    "Rhegium": "C",
+    "Taras": "C"
+   }
+  },
+  "Taras": {
+   "nome": "Taranto",
+   "c": "Y",
+   "t": "C",
+   "f": 1,
+   "x": 851,
+   "y": 2141,
+   "l": {
+    "Locri": "C",
+    "Corcyra": "S"
+   }
+  },
+  "Naxos": {
+   "nome": "Nasso",
+   "c": "G",
+   "t": "I",
+   "f": 1,
+   "x": 3006,
+   "y": 2142,
+   "l": {
+    "Mikonos": "S",
+    "Icaros": "S",
+    "Amorgos": "S",
+    "Ios": "S",
+    "Paros": "S",
+    "Delos": "S"
+   }
+  },
+  "Paros": {
+   "nome": "Paro",
+   "c": "G",
+   "t": "I",
+   "f": 1,
+   "x": 2873,
+   "y": 2161,
+   "l": {
+    "Delos": "S",
+    "Naxos": "S",
+    "Ios": "S",
+    "Sifnos": "S"
+   }
+  },
+  "Delos": {
+   "nome": "Delo",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 2876,
+   "y": 2004,
+   "l": {
+    "Siros": "S",
+    "Mikonos": "S",
+    "Naxos": "S",
+    "Paros": "S"
+   }
+  },
+  "Mikonos": {
+   "nome": "Micono",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 2967,
+   "y": 1925,
+   "l": {
+    "Tinos": "S",
+    "Icaros": "S",
+    "Naxos": "S",
+    "Delos": "S"
+   }
+  },
+  "Tinos": {
+   "nome": "Teno",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 2847,
+   "y": 1866,
+   "l": {
+    "Andros": "S",
+    "Mikonos": "S",
+    "Siros": "S"
+   }
+  },
+  "Andros": {
+   "nome": "Andro",
+   "c": "G",
+   "t": "I",
+   "f": 1,
+   "x": 2703,
+   "y": 1742,
+   "l": {
+    "Chios": "S",
+    "Tinos": "S",
+    "Siros": "S",
+    "Carystos": "S"
+   }
+  },
+  "Siros": {
+   "nome": "Siro",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 2724,
+   "y": 1975,
+   "l": {
+    "Andros": "S",
+    "Tinos": "S",
+    "Delos": "S",
+    "Sifnos": "S",
+    "Kithnos": "S",
+    "Kea": "S"
+   }
+  },
+  "Sifnos": {
+   "nome": "Sifno",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 2639,
+   "y": 2218,
+   "l": {
+    "Serifos": "S",
+    "Siros": "S",
+    "Paros": "S",
+    "Melos": "S"
+   }
+  },
+  "Melos": {
+   "nome": "Melo",
+   "c": "R",
+   "t": "I",
+   "f": 1,
+   "x": 2527,
+   "y": 2388,
+   "l": {
+    "Serifos": "S",
+    "Sifnos": "S",
+    "Ios": "S"
+   }
+  },
+  "Serifos": {
+   "nome": "Serifo",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 2542,
+   "y": 2124,
+   "l": {
+    "Kithnos": "S",
+    "Sifnos": "S",
+    "Melos": "S"
+   }
+  },
+  "Kithnos": {
+   "nome": "Citno",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 2515,
+   "y": 1981,
+   "l": {
+    "Kea": "S",
+    "Aegina": "S",
+    "Siros": "S",
+    "Serifos": "S"
+   }
+  },
+  "Kea": {
+   "nome": "Ceo",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 2460,
+   "y": 1872,
+   "l": {
+    "Sunium": "S",
+    "Carystos": "S",
+    "Siros": "S",
+    "Kithnos": "S"
+   }
+  },
+  "Carystos": {
+   "nome": "Caristo",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 2544,
+   "y": 1665,
+   "l": {
+    "Eretria": "C",
+    "Andros": "S",
+    "Kea": "S",
+    "Marathon": "S"
+   }
+  },
+  "Eretria": {
+   "nome": "Eretria",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 2359,
+   "y": 1460,
+   "l": {
+    "Chalcis": "C",
+    "Carystos": "C",
+    "Marathon": "S",
+    "Oropus": "S"
+   }
+  },
+  "Marathon": {
+   "nome": "Maratona",
+   "c": "G",
+   "t": "C",
+   "f": 0,
+   "x": 2357,
+   "y": 1575,
+   "l": {
+    "Eretria": "S",
+    "Carystos": "S",
+    "Sunium": "C",
+    "Decelea": "L",
+    "Oropus": "C"
+   }
+  },
+  "Sunium": {
+   "nome": "Capo Sunio",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 2319,
+   "y": 1836,
+   "l": {
+    "Marathon": "C",
+    "Kea": "S",
+    "Piraeus": "C"
+   }
+  },
+  "Piraeus": {
+   "nome": "Pireo",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 2223,
+   "y": 1756,
+   "l": {
+    "Athens": "L",
+    "Sunium": "C",
+    "Salamis": "S",
+    "Aegina": "S"
+   }
+  },
+  "Salamis": {
+   "nome": "Salamina",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 2094,
+   "y": 1723,
+   "l": {
+    "Piraeus": "S",
+    "Aegina": "S"
+   }
+  },
+  "Aegina": {
+   "nome": "Egina",
+   "c": "G",
+   "t": "I",
+   "f": 1,
+   "x": 2110,
+   "y": 1827,
+   "l": {
+    "Piraeus": "S",
+    "Kithnos": "S",
+    "Methana": "S",
+    "Epidaurus": "S",
+    "Cenchrae": "S",
+    "Megara": "S",
+    "Salamis": "S"
+   }
+  },
+  "Cythera": {
+   "nome": "Citera",
+   "c": "R",
+   "t": "I",
+   "f": 0,
+   "x": 1831,
+   "y": 2545,
+   "l": {
+    "Gythium": "S",
+    "Epidaurus Limera": "S",
+    "Cape Taenarum": "S"
+   }
+  },
+  "Idhra": {
+   "nome": "Idra",
+   "c": "R",
+   "t": "I",
+   "f": 0,
+   "x": 2093,
+   "y": 2071,
+   "l": {
+    "Hermione": "S",
+    "Troezen": "S",
+    "Cape Seyllaeum": "S"
+   }
+  },
+  "Leucas": {
+   "nome": "Leucade",
+   "c": "R",
+   "t": "I",
+   "f": 0,
+   "x": 690,
+   "y": 1222,
+   "l": {
+    "Corcyra": "S",
+    "Anactorium": "S",
+    "Ithaca": "S",
+    "Cephallenia": "S"
+   }
+  },
+  "Ithaca": {
+   "nome": "Itaca",
+   "c": "Y",
+   "t": "I",
+   "f": 0,
+   "x": 779,
+   "y": 1436,
+   "l": {
+    "Leucas": "S",
+    "Cephallenia": "S"
+   }
+  },
+  "Cephallenia": {
+   "nome": "Cefalonia",
+   "c": "Y",
+   "t": "I",
+   "f": 0,
+   "x": 703,
+   "y": 1536,
+   "l": {
+    "Leucas": "S",
+    "Ithaca": "S",
+    "Zacynthus": "S",
+    "Astacus": "S",
+    "Oeniadae": "S",
+    "Teichum": "S",
+    "Cyllene": "S"
+   }
+  },
+  "Zacynthus": {
+   "nome": "Zacinto",
+   "c": "G",
+   "t": "I",
+   "f": 0,
+   "x": 766,
+   "y": 1757,
+   "l": {
+    "Cephallenia": "S",
+    "Pylos": "S"
+   }
+  },
+  "Anactorium": {
+   "nome": "Anattorio",
+   "c": "R",
+   "t": "C",
+   "f": 1,
+   "x": 802,
+   "y": 1144,
+   "l": {
+    "Sybota": "S",
+    "Olpae": "C",
+    "Sollum": "C",
+    "Leucas": "S",
+    "Stratus": "L"
+   }
+  },
+  "Sollum": {
+   "nome": "Sollio",
+   "c": "R",
+   "t": "C",
+   "f": 1,
+   "x": 881,
+   "y": 1275,
+   "l": {
+    "Anactorium": "C",
+    "Stratus": "L",
+    "Astacus": "C"
+   }
+  },
+  "Astacus": {
+   "nome": "Astaco",
+   "c": "R",
+   "t": "C",
+   "f": 1,
+   "x": 958,
+   "y": 1401,
+   "l": {
+    "Sollum": "C",
+    "Stratus": "L",
+    "Oeniadae": "C",
+    "Cephallenia": "S"
+   }
+  },
+  "Oeniadae": {
+   "nome": "Eniade",
+   "c": "R",
+   "t": "C",
+   "f": 1,
+   "x": 1153,
+   "y": 1469,
+   "l": {
+    "Astacus": "C",
+    "Stratus": "L",
+    "Naupactus": "C",
+    "Cephallenia": "S"
+   }
+  },
+  "Stratus": {
+   "nome": "Strato",
+   "c": "G",
+   "t": "L",
+   "f": 1,
+   "x": 1068,
+   "y": 1270,
+   "l": {
+    "Astacus": "L",
+    "Sollum": "L",
+    "Anactorium": "L",
+    "Olpae": "L",
+    "Aetolia": "L",
+    "Oeniadae": "L"
+   }
+  },
+  "Aetolia": {
+   "nome": "Etolia",
+   "c": "Y",
+   "t": "L",
+   "f": 0,
+   "x": 1233,
+   "y": 1236,
+   "l": {
+    "Stratus": "L",
+    "Amphilochia": "L",
+    "Oeta": "L",
+    "Aegitium": "L",
+    "Naupactus": "L"
+   }
+  },
+  "Oeta": {
+   "nome": "Eta",
+   "c": "Y",
+   "t": "L",
+   "f": 0,
+   "x": 1381,
+   "y": 1152,
+   "l": {
+    "Dolopia": "L",
+    "Amphisa": "L",
+    "Aetolia": "L"
+   }
+  },
+  "Aeniania": {
+   "nome": "Eniania",
+   "c": "Y",
+   "t": "L",
+   "f": 0,
+   "x": 1536,
+   "y": 1064,
+   "l": {
+    "Dolopia": "L",
+    "Heraclea": "L"
+   }
+  },
+  "Aegitium": {
+   "nome": "Egizio",
+   "c": "Y",
+   "t": "L",
+   "f": 0,
+   "x": 1389,
+   "y": 1278,
+   "l": {
+    "Aetolia": "L",
+    "Amphisa": "L",
+    "Naupactus": "L"
+   }
+  },
+  "Amphisa": {
+   "nome": "Anfissa",
+   "c": "Y",
+   "t": "L",
+   "f": 0,
+   "x": 1528,
+   "y": 1276,
+   "l": {
+    "Aegitium": "L",
+    "Oeta": "L",
+    "Heraclea": "L",
+    "Delphi": "L"
+   }
+  },
+  "Delphi": {
+   "nome": "Delfi",
+   "c": "Y",
+   "t": "L",
+   "f": 0,
+   "x": 1649,
+   "y": 1323,
+   "l": {
+    "Heraclea": "L",
+    "Charonea": "L",
+    "Eupalium": "L",
+    "Amphisa": "L"
+   }
+  },
+  "Cytinium": {
+   "nome": "Citinio",
+   "c": "R",
+   "t": "L",
+   "f": 1,
+   "x": 1779,
+   "y": 1274,
+   "l": {
+    "Thermopylae": "L",
+    "Charonea": "L"
+   }
+  },
+  "Charonea": {
+   "nome": "Cheronea",
+   "c": "R",
+   "t": "L",
+   "f": 1,
+   "x": 1775,
+   "y": 1377,
+   "l": {
+    "Cytinium": "L",
+    "Thebes": "L",
+    "Siphae": "L",
+    "Delphi": "L"
+   }
+  },
+  "Thebes": {
+   "nome": "Tebe",
+   "c": "R",
+   "t": "L",
+   "f": 1,
+   "x": 1938,
+   "y": 1387,
+   "l": {
+    "Charonea": "L",
+    "Delium": "L",
+    "Tanagra": "L",
+    "Platea": "L"
+   }
+  },
+  "Tanagra": {
+   "nome": "Tanagra",
+   "c": "R",
+   "t": "L",
+   "f": 1,
+   "x": 2085,
+   "y": 1494,
+   "l": {
+    "Thebes": "L",
+    "Delium": "L",
+    "Oropus": "L",
+    "Panactum": "L"
+   }
+  },
+  "Platea": {
+   "nome": "Platea",
+   "c": "G",
+   "t": "L",
+   "f": 1,
+   "x": 1936,
+   "y": 1496,
+   "l": {
+    "Thebes": "L",
+    "Panactum": "L",
+    "Siphae": "L"
+   }
+  },
+  "Olizon": {
+   "nome": "Olizone",
+   "c": "G",
+   "t": "C",
+   "f": 0,
+   "x": 1957,
+   "y": 990,
+   "l": {
+    "Magnesia": "C",
+    "Sporades": "S",
+    "Histiaea": "S",
+    "Pteleum": "C"
+   }
+  },
+  "Pteleum": {
+   "nome": "Pteleo",
+   "c": "G",
+   "t": "C",
+   "f": 0,
+   "x": 1834,
+   "y": 1063,
+   "l": {
+    "Olizon": "C",
+    "Thermopylae": "S",
+    "Heraclea": "L"
+   }
+  },
+  "Heraclea": {
+   "nome": "Eraclea",
+   "c": "R",
+   "t": "C",
+   "f": 1,
+   "x": 1623,
+   "y": 1171,
+   "l": {
+    "Aeniania": "L",
+    "Pteleum": "L",
+    "Thermopylae": "C",
+    "Delphi": "L",
+    "Amphisa": "L"
+   }
+  },
+  "Siphae": {
+   "nome": "Sife",
+   "c": "R",
+   "t": "C",
+   "f": 1,
+   "x": 1761,
+   "y": 1523,
+   "l": {
+    "Eupalium": "C",
+    "Charonea": "L",
+    "Platea": "L",
+    "Pegae": "C"
+   }
+  },
+  "Eupalium": {
+   "nome": "Eupalio",
+   "c": "G",
+   "t": "C",
+   "f": 0,
+   "x": 1557,
+   "y": 1460,
+   "l": {
+    "Delphi": "L",
+    "Siphae": "C",
+    "Naupactus": "C"
+   }
+  },
+  "Naupactus": {
+   "nome": "Naupatto",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 1329,
+   "y": 1457,
+   "l": {
+    "Aetolia": "L",
+    "Aegitium": "L",
+    "Eupalium": "C",
+    "Panormus": "C",
+    "Patrae": "C",
+    "Oeniadae": "C"
+   }
+  },
+  "Thermopylae": {
+   "nome": "Termopili",
+   "c": "Y",
+   "t": "C",
+   "f": 0,
+   "x": 1755,
+   "y": 1180,
+   "l": {
+    "Heraclea": "C",
+    "Pteleum": "S",
+    "Histiaea": "S",
+    "Atlante": "C",
+    "Cytinium": "L"
+   }
+  },
+  "Histiaea": {
+   "nome": "Istiea",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 1970,
+   "y": 1131,
+   "l": {
+    "Olizon": "S",
+    "Chalcis": "C",
+    "Thermopylae": "S"
+   }
+  },
+  "Atlante": {
+   "nome": "Atalante",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 1940,
+   "y": 1271,
+   "l": {
+    "Thermopylae": "C",
+    "Delium": "C"
+   }
+  },
+  "Chalcis": {
+   "nome": "Calcide",
+   "c": "G",
+   "t": "C",
+   "f": 1,
+   "x": 2210,
+   "y": 1402,
+   "l": {
+    "Histiaea": "C",
+    "Eretria": "C",
+    "Oropus": "S",
+    "Delium": "S"
+   }
+  },
+  "Delium": {
+   "nome": "Delio",
+   "c": "R",
+   "t": "C",
+   "f": 0,
+   "x": 2094,
+   "y": 1383,
+   "l": {
+    "Atlante": "C",
+    "Thebes": "L",
+    "Tanagra": "L",
+    "Oropus": "C",
+    "Chalcis": "S"
+   }
+  },
+  "Oropus": {
+   "nome": "Oropo",
+   "c": "G",
+   "t": "C",
+   "f": 0,
+   "x": 2249,
+   "y": 1506,
+   "l": {
+    "Tanagra": "L",
+    "Delium": "C",
+    "Chalcis": "S",
+    "Eretria": "S",
+    "Marathon": "C",
+    "Decelea": "L"
+   }
+  },
+  "Decelea": {
+   "nome": "Decelea",
+   "c": "G",
+   "t": "L",
+   "f": 1,
+   "x": 2266,
+   "y": 1601,
+   "l": {
+    "Oropus": "L",
+    "Marathon": "L",
+    "Athens": "L"
+   }
+  },
+  "Athens": {
+   "nome": "Atene",
+   "c": "G",
+   "t": "L",
+   "f": 1,
+   "x": 2171,
+   "y": 1642,
+   "l": {
+    "Decelea": "L",
+    "Piraeus": "L",
+    "Panactum": "L"
+   }
+  },
+  "Panactum": {
+   "nome": "Panatto",
+   "c": "G",
+   "t": "L",
+   "f": 1,
+   "x": 2043,
+   "y": 1591,
+   "l": {
+    "Platea": "L",
+    "Tanagra": "L",
+    "Athens": "L",
+    "Megara": "L",
+    "Pegae": "L"
+   }
+  },
+  "Pegae": {
+   "nome": "Pege",
+   "c": "R",
+   "t": "C",
+   "f": 1,
+   "x": 1895,
+   "y": 1606,
+   "l": {
+    "Siphae": "C",
+    "Panactum": "L",
+    "Megara": "L",
+    "Corinth": "C"
+   }
+  },
+  "Megara": {
+   "nome": "Megara",
+   "c": "R",
+   "t": "C",
+   "f": 1,
+   "x": 1981,
+   "y": 1680,
+   "l": {
+    "Panactum": "L",
+    "Aegina": "S",
+    "Pegae": "L"
+   }
+  },
+  "Corinth": {
+   "nome": "Corinto",
+   "c": "R",
+   "t": "C",
+   "f": 1,
+   "x": 1796,
+   "y": 1643,
+   "l": {
+    "Pegae": "C",
+    "Cenchrae": "L",
+    "Cleonae": "L",
+    "Sicyon": "C"
+   }
+  },
+  "Sicyon": {
+   "nome": "Sicione",
+   "c": "R",
+   "t": "C",
+   "f": 1,
+   "x": 1681,
+   "y": 1624,
+   "l": {
+    "Erineus": "C",
+    "Corinth": "C",
+    "Philius": "L"
+   }
+  },
+  "Cenchrae": {
+   "nome": "Cencree",
+   "c": "R",
+   "t": "C",
+   "f": 1,
+   "x": 1904,
+   "y": 1734,
+   "l": {
+    "Corinth": "L",
+    "Epidaurus": "C",
+    "Aegina": "S",
+    "Cleonae": "L"
+   }
+  },
+  "Epidaurus": {
+   "nome": "Epidauro",
+   "c": "R",
+   "t": "C",
+   "f": 1,
+   "x": 1929,
+   "y": 1851,
+   "l": {
+    "Cenchrae": "C",
+    "Aegina": "S",
+    "Methana": "C",
+    "Argos": "L",
+    "Mycenae": "L"
+   }
+  },
+  "Methana": {
+   "nome": "Metana",
+   "c": "R",
+   "t": "C",
+   "f": 1,
+   "x": 2039,
+   "y": 1896,
+   "l": {
+    "Epidaurus": "C",
+    "Aegina": "S",
+    "Cape Seyllaeum": "C"
+   }
+  },
+  "Cape Seyllaeum": {
+   "nome": "Capo Scilleo",
+   "c": "R",
+   "t": "C",
+   "f": 0,
+   "x": 2110,
+   "y": 1977,
+   "l": {
+    "Methana": "C",
+    "Troezen": "C",
+    "Idhra": "S"
+   }
+  },
+  "Troezen": {
+   "nome": "Trezene",
+   "c": "R",
+   "t": "C",
+   "f": 1,
+   "x": 1990,
+   "y": 1997,
+   "l": {
+    "Cape Seyllaeum": "C",
+    "Idhra": "S",
+    "Hermione": "C"
+   }
+  },
+  "Hermione": {
+   "nome": "Ermione",
+   "c": "R",
+   "t": "C",
+   "f": 1,
+   "x": 1912,
+   "y": 2061,
+   "l": {
+    "Troezen": "C",
+    "Idhra": "S",
+    "Argos": "C",
+    "Thyrea": "S",
+    "Prasiae": "S"
+   }
+  },
+  "Prasiae": {
+   "nome": "Prasie",
+   "c": "R",
+   "t": "C",
+   "f": 1,
+   "x": 1804,
+   "y": 2127,
+   "l": {
+    "Thyrea": "C",
+    "Hermione": "S",
+    "Epidaurus Limera": "C",
+    "Gythium": "L",
+    "Sparta": "L"
+   }
+  },
+  "Thyrea": {
+   "nome": "Tirea",
+   "c": "R",
+   "t": "C",
+   "f": 1,
+   "x": 1764,
+   "y": 2029,
+   "l": {
+    "Hermione": "S",
+    "Prasiae": "C",
+    "Caryae": "L",
+    "Argos": "C"
+   }
+  },
+  "Cleonae": {
+   "nome": "Cleone",
+   "c": "R",
+   "t": "L",
+   "f": 1,
+   "x": 1798,
+   "y": 1749,
+   "l": {
+    "Corinth": "L",
+    "Cenchrae": "L",
+    "Mycenae": "L",
+    "Nemea": "L"
+   }
+  },
+  "Mycenae": {
+   "nome": "Micene",
+   "c": "R",
+   "t": "L",
+   "f": 1,
+   "x": 1796,
+   "y": 1851,
+   "l": {
+    "Cleonae": "L",
+    "Epidaurus": "L",
+    "Argos": "L",
+    "Nemea": "L"
+   }
+  },
+  "Nemea": {
+   "nome": "Nemea",
+   "c": "R",
+   "t": "L",
+   "f": 1,
+   "x": 1677,
+   "y": 1752,
+   "l": {
+    "Philius": "L",
+    "Cleonae": "L",
+    "Mycenae": "L"
+   }
+  },
+  "Philius": {
+   "nome": "Fliunte",
+   "c": "R",
+   "t": "L",
+   "f": 1,
+   "x": 1542,
+   "y": 1723,
+   "l": {
+    "Sicyon": "L",
+    "Nemea": "L",
+    "Orchomenus": "L"
+   }
+  },
+  "Oronae": {
+   "nome": "Ornee",
+   "c": "R",
+   "t": "L",
+   "f": 1,
+   "x": 1587,
+   "y": 1849,
+   "l": {
+    "Orchomenus": "L",
+    "Argos": "L",
+    "Mantinea": "L"
+   }
+  },
+  "Caryae": {
+   "nome": "Carie",
+   "c": "R",
+   "t": "L",
+   "f": 0,
+   "x": 1649,
+   "y": 2046,
+   "l": {
+    "Argos": "L",
+    "Thyrea": "L",
+    "Sparta": "L"
+   }
+  },
+  "Tegea": {
+   "nome": "Tegea",
+   "c": "R",
+   "t": "L",
+   "f": 1,
+   "x": 1524,
+   "y": 2068,
+   "l": {
+    "Mantinea": "L",
+    "Sparta": "L"
+   }
+  },
+  "Orchomenus": {
+   "nome": "Orcomeno",
+   "c": "R",
+   "t": "L",
+   "f": 1,
+   "x": 1445,
+   "y": 1845,
+   "l": {
+    "Philius": "L",
+    "Oronae": "L",
+    "Mantinea": "L",
+    "Methydrum": "L"
+   }
+  },
+  "Elis": {
+   "nome": "Elide",
+   "c": "R",
+   "t": "L",
+   "f": 1,
+   "x": 1111,
+   "y": 1731,
+   "l": {
+    "Cyllene": "L",
+    "Pheia": "L",
+    "Olympia": "L"
+   }
+  },
+  "Olympia": {
+   "nome": "Olimpia",
+   "c": "R",
+   "t": "L",
+   "f": 1,
+   "x": 1263,
+   "y": 1816,
+   "l": {
+    "Elis": "L",
+    "Methydrum": "L",
+    "Lepreum": "L",
+    "Pheia": "L"
+   }
+  },
+  "Methydrum": {
+   "nome": "Metidrio",
+   "c": "R",
+   "t": "L",
+   "f": 1,
+   "x": 1379,
+   "y": 1973,
+   "l": {
+    "Olympia": "L",
+    "Orchomenus": "L",
+    "Mantinea": "L",
+    "Belmina": "L",
+    "Lepreum": "L"
+   }
+  },
+  "Mantinea": {
+   "nome": "Mantinea",
+   "c": "R",
+   "t": "L",
+   "f": 1,
+   "x": 1553,
+   "y": 1956,
+   "l": {
+    "Orchomenus": "L",
+    "Oronae": "L",
+    "Argos": "L",
+    "Methydrum": "L",
+    "Tegea": "L"
+   }
+  },
+  "Belmina": {
+   "nome": "Belmina",
+   "c": "R",
+   "t": "L",
+   "f": 0,
+   "x": 1384,
+   "y": 2109,
+   "l": {
+    "Methydrum": "L",
+    "Sparta": "L",
+    "Pylos": "L"
+   }
+  },
+  "Sparta": {
+   "nome": "Sparta",
+   "c": "R",
+   "t": "L",
+   "f": 0,
+   "x": 1573,
+   "y": 2186,
+   "l": {
+    "Tegea": "L",
+    "Caryae": "L",
+    "Prasiae": "L",
+    "Gythium": "L",
+    "Corone": "L",
+    "Belmina": "L"
+   }
+  },
+  "Gythium": {
+   "nome": "Gizio",
+   "c": "R",
+   "t": "C",
+   "f": 1,
+   "x": 1648,
+   "y": 2359,
+   "l": {
+    "Sparta": "L",
+    "Prasiae": "L",
+    "Epidaurus Limera": "L",
+    "Cythera": "S",
+    "Cape Taenarum": "C"
+   }
+  },
+  "Epidaurus Limera": {
+   "nome": "Epidauro Limera",
+   "c": "R",
+   "t": "C",
+   "f": 1,
+   "x": 1911,
+   "y": 2322,
+   "l": {
+    "Gythium": "L",
+    "Prasiae": "C",
+    "Cythera": "S"
+   }
+  },
+  "Cape Taenarum": {
+   "nome": "Capo Tenaro",
+   "c": "R",
+   "t": "C",
+   "f": 0,
+   "x": 1582,
+   "y": 2552,
+   "l": {
+    "Gythium": "C",
+    "Cythera": "S",
+    "Syracuse": "S",
+    "Corone": "C"
+   }
+  },
+  "Corone": {
+   "nome": "Corone",
+   "c": "R",
+   "t": "C",
+   "f": 1,
+   "x": 1383,
+   "y": 2248,
+   "l": {
+    "Sparta": "L",
+    "Cape Taenarum": "C",
+    "Asine": "C"
+   }
+  },
+  "Asine": {
+   "nome": "Asine",
+   "c": "R",
+   "t": "C",
+   "f": 1,
+   "x": 1322,
+   "y": 2391,
+   "l": {
+    "Corone": "C",
+    "Pylos": "C"
+   }
+  },
+  "Pylos": {
+   "nome": "Pilo",
+   "c": "R",
+   "t": "C",
+   "f": 1,
+   "x": 1203,
+   "y": 2276,
+   "l": {
+    "Zacynthus": "S",
+    "Asine": "C",
+    "Lepreum": "C",
+    "Belmina": "L"
+   }
+  },
+  "Lepreum": {
+   "nome": "Lepreo",
+   "c": "R",
+   "t": "C",
+   "f": 1,
+   "x": 1224,
+   "y": 1998,
+   "l": {
+    "Pylos": "C",
+    "Pheia": "C",
+    "Methydrum": "L",
+    "Olympia": "L"
+   }
+  },
+  "Pheia": {
+   "nome": "Fea",
+   "c": "R",
+   "t": "C",
+   "f": 1,
+   "x": 1074,
+   "y": 1847,
+   "l": {
+    "Cyllene": "C",
+    "Elis": "L",
+    "Olympia": "L",
+    "Lepreum": "C"
+   }
+  },
+  "Cyllene": {
+   "nome": "Cillene",
+   "c": "R",
+   "t": "C",
+   "f": 1,
+   "x": 963,
+   "y": 1700,
+   "l": {
+    "Cephallenia": "S",
+    "Teichum": "C",
+    "Elis": "L",
+    "Pheia": "C"
+   }
+  },
+  "Teichum": {
+   "nome": "Tichio",
+   "c": "Y",
+   "t": "C",
+   "f": 1,
+   "x": 1022,
+   "y": 1584,
+   "l": {
+    "Cephallenia": "S",
+    "Cyllene": "C",
+    "Dyme": "C"
+   }
+  },
+  "Dyme": {
+   "nome": "Dime",
+   "c": "Y",
+   "t": "C",
+   "f": 1,
+   "x": 1162,
+   "y": 1580,
+   "l": {
+    "Teichum": "C",
+    "Patrae": "C"
+   }
+  },
+  "Patrae": {
+   "nome": "Patrasso",
+   "c": "Y",
+   "t": "C",
+   "f": 1,
+   "x": 1260,
+   "y": 1538,
+   "l": {
+    "Naupactus": "C",
+    "Dyme": "C"
+   }
+  },
+  "Panormus": {
+   "nome": "Panormo",
+   "c": "Y",
+   "t": "C",
+   "f": 1,
+   "x": 1406,
+   "y": 1531,
+   "l": {
+    "Naupactus": "C",
+    "Erineus": "C"
+   }
+  },
+  "Erineus": {
+   "nome": "Erineo",
+   "c": "Y",
+   "t": "C",
+   "f": 1,
+   "x": 1528,
+   "y": 1579,
+   "l": {
+    "Panormus": "C",
+    "Sicyon": "C"
+   }
+  },
+  "Argos": {
+   "nome": "Argo",
+   "c": "Y",
+   "t": "C",
+   "f": 0,
+   "x": 1707,
+   "y": 1935,
+   "l": {
+    "Oronae": "L",
+    "Mycenae": "L",
+    "Epidaurus": "L",
+    "Hermione": "C",
+    "Thyrea": "C",
+    "Caryae": "L",
+    "Mantinea": "L"
+   }
+  }
+ }
+}

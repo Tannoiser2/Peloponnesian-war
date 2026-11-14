@@ -1,0 +1,193 @@
+Epidamnos|G|C|1|Macedonia:L,Sybota:C,Corcyra:S
+Macedonia|Y|L|0|Epidamnos:L,Pela:L,Larisa:L
+Pela|Y|L|1|Macedonia:L,Methone:L,Amphipolis:L,Olynthus:L
+Sybota|Y|C|1|Epidamnos:C,Corcyra:S,Ambracia:L,Anactorium:S
+Ambracia|R|L|1|Sybota:C,Idomene:C
+Idomene|G|C|1|Ambracia:L,Amphilochia:L,Olpae:C
+Olpae|G|C|1|Anactorium:C,Idomene:C,Amphilochia:L,Stratus:L
+Amphilochia|G|L|0|Idomene:L,Dolopia:L,Aetolia:L,Olpae:L
+Dolopia|Y|L|0|Amphilochia:L,Pharsalus:L,Aeniania:L,Oeta:L
+Pharsalus|G|L|1|Larisa:L,Dolopia:L
+Larisa|G|L|1|Pharsalus:L,Macedonia:L,Magnesia:L
+Corcyra|G|I|1|Epidamnos:S,Sybota:S,Leucas:S,Taras:S
+Methone|G|C|1|Pela:L,Pydna:C,Potidaea:S
+Pydna|Y|C|1|Methone:C,Magnesia:C,Potidaea:S
+Magnesia|Y|C|1|Pydna:C,Larisa:L,Olizon:C
+Potidaea|G|C|1|Methone:S,Olynthus:C,Scione:C,Pydna:S
+Olynthus|G|C|1|Potidaea:C,Pela:L,Stagirus:L,Dium:L,Torone:C
+Stagirus|G|C|1|Amphipolis:C,Dium:C,Olynthus:L
+Dium|G|C|1|Stagirus:C,Thyssus:C,Olynthus:L
+Thyssus|G|C|1|Dium:C,Torone:S
+Torone|G|C|1|Olynthus:C,Scione:S,Thyssus:S
+Scione|G|C|1|Potidaea:C,Torone:S,Sporades:S
+Amphipolis|G|C|1|Pela:L,Abdera:C,Thasos:S,Stagirus:C
+Thasos|G|I|1|Amphipolis:S,Abdera:S,Samothraki:S
+Abdera|G|C|1|Amphipolis:C,Thasos:S,Maraneia:C
+Samothraki|G|I|0|Thasos:S,Limnos:S,Imbros:S,Maraneia:S
+Maraneia|G|C|1|Abdera:C,Samothraki:S,Cardia:C
+Cardia|G|C|1|Maraneia:C,Perinthus:L,Elaeus:C
+Perinthus|G|C|1|Cardia:L,Proconneus:S,Byzantium:C
+Byzantium|G|C|1|Perinthus:C,Proconneus:S,Cyzicus:C
+Proconneus|G|I|0|Perinthus:S,Byzantium:S,Cyzicus:S,Lampsacus:S
+Cyzicus|G|C|1|Byzantium:C,Proconneus:S,Lampsacus:C
+Lampsacus|G|C|1|Proconneus:S,Cyzicus:C,Abydos:C
+Abydos|G|C|1|Lampsacus:C,Elaeus:S,Sigeum:C
+Elaeus|G|C|1|Abydos:S,Cardia:C,Imbros:S
+Imbros|G|I|0|Samothraki:S,Elaeus:S,Sigeum:S,Tenedos:S,Limnos:S
+Tenedos|G|I|1|Imbros:S,Limnos:S,Methymna:S,Sigeum:S
+Sigeum|G|C|1|Abydos:C,Imbros:S,Tenedos:S,Antandrus:L
+Antandrus|G|C|1|Sigeum:L,Methymna:S,Cyme:C,Arginusae:S,Mytilene:S
+Mytilene|G|I|1|Antandrus:S,Arginusae:S,Methymna:C
+Arginusae|G|I|0|Antandrus:S,Cyme:S,Mytilene:S,Chios:S
+Cyme|G|C|1|Antandrus:C,Phocaea:C,Arginusae:S
+Methymna|G|I|1|Antandrus:S,Mytilene:C,Chios:S,Psara:S,Limnos:S,Tenedos:S
+Phocaea|G|C|1|Cyme:C,Smyrna:C
+Smyrna|G|C|1|Phocaea:C,Sardis:L,Colophon:L,Clazomenae:C
+Sardis|Y|L|1|Smyrna:L
+Colophon|G|L|1|Smyrna:L,Ephesus:L,Teos:L,Clazomenae:L
+Ephesus|G|C|1|Colophon:L,Pygela:C,Samos:S,Teos:S
+Clazomenae|G|C|0|Smyrna:C,Colophon:L,Erythrae:C
+Erythrae|G|C|1|Clazomenae:C,Teos:C,Chios:S
+Pygela|G|C|1|Ephesus:C,Priene:C,Samos:S
+Priene|G|C|1|Pygela:C,Miletus:C,Samos:S
+Teos|G|C|1|Erythrae:C,Colophon:L,Ephesus:C,Samos:S,Chios:S
+Miletus|G|C|1|Priene:C,Iasus:C,Samos:S
+Samos|G|I|1|Teos:S,Ephesus:S,Pygela:S,Priene:S,Miletus:S,Leros:S,Patmos:S,Icaros:S
+Iasus|G|C|1|Miletus:C,Halicarnarsus:C
+Halicarnarsus|G|C|1|Iasus:C,Cnidus:C,Kos:S,Kaliminos:S
+Cnidus|G|C|0|Halicarnarsus:C,Loryma:C,Syme:S,Triopium:C
+Loryma|G|C|1|Cnidus:C,Syme:S
+Lindus|G|I|0|Syme:S,Camirus:C
+Camirus|G|I|0|Syme:S,Lindus:C,Chalce:S
+Chalce|G|I|0|Syme:S,Camirus:S,Kos:S,Triopium:S
+Triopium|G|C|1|Cnidus:C,Syme:S,Chalce:S,Kos:S
+Syme|G|I|0|Triopium:S,Cnidus:S,Loryma:S,Lindus:S,Camirus:S,Chalce:S
+Astipal|G|I|0|Amorgos:S,Kos:S
+Kos|G|I|0|Astipal:S,Kaliminos:S,Halicarnarsus:S,Triopium:S,Chalce:S
+Kaliminos|G|I|0|Leros:S,Halicarnarsus:S,Kos:S
+Leros|G|I|0|Samos:S,Kaliminos:S,Patmos:S
+Patmos|G|I|0|Samos:S,Leros:S,Amorgos:S
+Limnos|G|I|0|Samothraki:S,Imbros:S,Methymna:S,Skiros:S
+Sporades|G|I|0|Olizon:S,Skiros:S,Scione:S
+Skiros|G|I|0|Sporades:S,Limnos:S,Psara:S
+Psara|G|I|0|Skiros:S,Methymna:S,Chios:S
+Chios|G|I|1|Psara:S,Methymna:S,Arginusae:S,Erythrae:S,Teos:S,Icaros:S,Andros:S
+Icaros|G|I|0|Chios:S,Samos:S,Naxos:S,Mikonos:S
+Amorgos|G|I|1|Naxos:S,Patmos:S,Astipal:S,Thera:S
+Thera|R|I|0|Ios:S,Amorgos:S
+Ios|G|I|0|Melos:S,Paros:S,Naxos:S,Thera:S
+Lilybaeum|Y|C|1|Panormus (Sicily):C,Segesta:L,Selinus:C
+Panormus (Sicily)|Y|C|1|Lilybaeum:C,Himera:C,Segesta:L
+Selinus|Y|C|1|Lilybaeum:C,Segesta:L,Acragas:C
+Gela|Y|C|1|Acragas:C,Enna:L,Leontini:L,Camarina:C
+Acragas|Y|C|1|Selinus:C,Segesta:L,Enna:L,Gela:C
+Segesta|Y|L|1|Lilybaeum:L,Panormus (Sicily):L,Enna:L,Acragas:L
+Enna|Y|L|1|Segesta:L,Himera:L,Leontini:L,Gela:L,Acragas:L
+Leontini|Y|L|1|Enna:L,Camarina:L,Gela:L,Catana:L,Syracuse:L,Helorus:L
+Camarina|Y|C|1|Gela:C,Leontini:L,Helorus:C
+Helorus|Y|C|1|Camarina:C,Syracuse:C,Leontini:L
+Syracuse|Y|C|1|Leontini:L,Catana:C,Helorus:C,Cape Taenarum:S
+Himera|Y|C|1|Panormus (Sicily):C,Liparian Is.:S,Messina:C,Enna:L
+Liparian Is.|Y|I|0|Himera:S,Messina:S,Rhegium:S
+Catana|Y|C|1|Messina:C,Syracuse:C,Leontini:L
+Messina|Y|C|1|Himera:C,Liparian Is.:S,Rhegium:S,Catana:C
+Rhegium|Y|C|1|Messina:S,Liparian Is.:S,Locri:C
+Locri|Y|C|1|Rhegium:C,Taras:C
+Taras|Y|C|1|Locri:C,Corcyra:S
+Naxos|G|I|1|Mikonos:S,Icaros:S,Amorgos:S,Ios:S,Paros:S,Delos:S
+Paros|G|I|1|Delos:S,Naxos:S,Ios:S,Sifnos:S
+Delos|G|I|0|Siros:S,Mikonos:S,Naxos:S,Paros:S
+Mikonos|G|I|0|Tinos:S,Icaros:S,Naxos:S,Delos:S
+Tinos|G|I|0|Andros:S,Mikonos:S,Siros:S
+Andros|G|I|1|Chios:S,Tinos:S,Siros:S,Carystos:S
+Siros|G|I|0|Andros:S,Tinos:S,Delos:S,Sifnos:S,Kithnos:S,Kea:S
+Sifnos|G|I|0|Serifos:S,Siros:S,Paros:S,Melos:S
+Melos|R|I|1|Serifos:S,Sifnos:S,Ios:S
+Serifos|G|I|0|Kithnos:S,Sifnos:S,Melos:S
+Kithnos|G|I|0|Kea:S,Aegina:S,Siros:S,Serifos:S
+Kea|G|I|0|Sunium:S,Carystos:S,Siros:S,Kithnos:S
+Carystos|G|C|1|Eretria:C,Andros:S,Kea:S,Marathon:S
+Eretria|G|C|1|Chalcis:C,Carystos:C,Marathon:S,Oropus:S
+Marathon|G|C|0|Eretria:S,Carystos:S,Sunium:C,Decelea:L,Oropus:C
+Sunium|G|C|1|Marathon:C,Kea:S,Piraeus:C
+Piraeus|G|C|1|ATHENS:L,Sunium:C,Salamis:S,Aegina:S
+Salamis|G|I|0|Piraeus:S,Aegina:S
+Aegina|G|I|1|Piraeus:S,Kithnos:S,Methana:S,Epidaurus:S,Cenchrae:S,Megara:S,Salamis:S
+Cythera|R|I|0|Gythium:S,Epidaurus Limera:S,Cape Taenarum:S
+Idhra|R|I|0|Hermione:S,Troezen:S,Cape Seyllaeum:S
+Leucas|R|I|0|Corcyra:S,Anactorium:S,Ithaca:S,Cephallenia:S
+Ithaca|Y|I|0|Leucas:S,Cephallenia:S
+Cephallenia|Y|I|0|Leucas:S,Ithaca:S,Zacynthus:S,Astacus:S,Oeniadae:S,Teichum:S,Cyllere:S
+Zacynthus|G|I|0|Cephallenia:S,Pylos:S
+Anactorium|R|C|1|Sybota:S,Olpae:C,Sollum:C,Leucas:S,Stratus:L
+Sollum|R|C|1|Anactorium:C,Stratus:L,Astacus:C
+Astacus|R|C|1|Sollum:C,Stratus:L,Oeniadae:C,Cephallenia:S
+Oeniadae|R|C|1|Astacus:C,Stratus:L,Naupactus:C,Cephallenia:S
+Stratus|G|L|1|Astacus:L,Sollum:L,Anactorium:L,Olpae:L,Aetolia:L,Oeniadae:L
+Aetolia|Y|L|0|Stratus:L,Amphilochia:L,Oeta:L,Aegitium:L,Naupactus:L
+Oeta|Y|L|0|Dolopia:L,Amphisa:L,Aetolia:L
+Aeniania|Y|L|0|Dolopia:L,Heraclea:L
+Aegitium|Y|L|0|Aetolia:L,Amphisa:L,Naupactus:L
+Amphisa|Y|L|0|Aegitium:L,Oeta:L,Heraclea:L,Delphi:L
+Delphi|Y|L|0|Heraclea:L,Charonea:L,Eupalium:L,Amphisa:L
+Cytinium|R|L|1|Thermopylae:L,Charonea:L
+Charonea|R|L|1|Cytinium:L,Thebes:L,Siphae:L,Delphi:L
+Thebes|R|L|1|Charonea:L,Delium:L,Tanagra:L,Platea:L
+Tanagra|R|L|1|Thebes:L,Delium:L,Oropus:L,Panactum:L
+Platea|G|L|1|Thebes:L,Panactum:L,Siphae:L
+Olizon|G|C|0|Magnesia:C,Sporades:S,Histiaea:S,Pteleum:C
+Pteleum|G|C|0|Olizon:C,Thermopylae:S,Heraclea:L
+Heraclea|R|C|1|Aeniania:L,Pteleum:L,Thermopylae:C,Delphi:L,Amphisa:L
+Siphae|R|C|1|Eupalium:C,Charonea:L,Platea:L,Pegae:C
+Eupalium|G|C|0|Delphi:L,Siphae:C,Naupactus:C
+Naupactus|G|C|1|Aetolia:L,Aegitium:L,Eupalium:C,Panormus:C,Patrae:C,Oeniadae:C
+Thermopylae|Y|C|0|Heraclea:C,Pteleum:S,Histiaea:S,Atlante:C,Cytinium:L
+Histiaea|G|C|1|Olizon:L,Chalcis:C,Thermopylae:S
+Atlante|G|C|1|Thermopylae:C,Delium:C
+Chalcis|G|C|1|Histiaea:C,Eretria:C,Oropus:S,Delium:S
+Delium|R|C|0|Atlante:C,Thebes:L,Tanagra:L,Oropus:C,Chalcis:S
+Oropus|G|C|0|Tanagra:L,Delium:C,Chalcis:S,Eretria:S,Marathon:C,Decelea:L
+Decelea|G|L|1|Oropus:C,Marathon:C,ATHENS:C
+ATHENS|G|L|1|Decelea:C,Piraeus:C,Panactum:C
+Panactum|G|L|1|Platea:C,Tanagra:C,ATHENS:C,Megara:C,Pegae:C
+Pegae|R|C|1|Siphae:C,Panactum:L,Megara:L,Corinth:C
+Megara|R|C|1|Panactum:L,Aegina:S,Pegae:L
+Corinth|R|C|1|Pegae:C,Cenchrae:L,Cleonae:L,Sicyon:C
+Sicyon|R|C|1|Erineus:C,Corinth:C,Philius:L
+Cenchrae|R|C|1|Corinth:L,Epidaurus:C,Aegina:S,Cleonae:L
+Epidaurus|R|C|1|Cenchrae:C,Aegina:S,Methana:C,Argos:L,Mycenae:L
+Methana|R|C|1|Epidaurus:C,Aegina:S,Cape Seyllaeum:C
+Cape Seyllaeum|R|C|0|Methana:C,Troezen:C,Idhra:S
+Troezen|R|C|1|Cape Seyllaeum:C,Idhra:S,Hermione:C
+Hermione|R|C|1|Troezen:C,Idhra:S,Argos:C,Thyrea:S,Prasiae:S
+Prasiae|R|C|1|Thyrea:C,Hermione:S,Epidaurus Limera:C,Gythium:L,SPARTA:L
+Thyrea|R|C|1|Hermione:S,Prasiae:C,Caryae:L,Argos:C
+Cleonae|R|L|1|Corinth:L,Cenchrae:L,Mycenae:L,Nemea:L
+Mycenae|R|L|1|Cleonae:L,Epidaurus:L,Argos:L,Nemea:L
+Nemea|R|L|1|Philius:L,Cleonae:L,Mycenae:L
+Philius|R|L|1|Sicyon:L,Nemea:L,Orchomenus:L
+Oronae|R|L|1|Orchomenus:L,Argos:L,Mantinea:L
+Caryae|R|L|0|Argos:L,Thyrea:L,SPARTA:L
+Tegea|R|L|1|Mantinea:L,SPARTA:L
+Orchomenus|R|L|1|Philius:L,Oronae:L,Mantinea:L,Methydrum:L
+Elis|R|L|1|Cyllere:L,Pheia:L,Olympia:L
+Olympia|R|L|1|Elis:L,Methydrum:L,Lepreum:L,Pheia:L
+Methydrum|R|L|1|Olympia:L,Orchomenus:L,Mantinea:L,Belmina:L,Lepreum:L
+Mantinea|R|L|1|Orchomenus:L,Oronae:L,Argos:L,Methydrum:L,Tegea:L
+Belmina|R|L|0|Methydrum:L,SPARTA:L,Pylos:L
+SPARTA|R|L|0|Tegea:L,Caryae:L,Prasiae:L,Gythium:L,Corone:L,Belmina:L
+Gythium|R|C|1|SPARTA:L,Prasiae:L,Epidaurus Limera:L,Cythera:S,Cape Taenarum:C
+Epidaurus Limera|R|C|1|Gythium:L,Prasiae:C,Cythera:S
+Cape Taenarum|R|C|0|Gythium:C,Cythera:S,Syracuse:S,Corone:C
+Corone|R|C|1|SPARTA:L,Cape Taenarum:C,Asine:C
+Asine|R|C|1|Corone:C,Pylos:C
+Pylos|R|C|1|Zacynthus:S,Asine:C,Lepreum:C,Belmina:L
+Lepreum|R|C|1|Pylos:C,Pheia:C,Methydrum:L,Olympia:L
+Pheia|R|C|1|Cyllere:C,Elis:L,Olympia:L,Lepreum:C
+Cyllere|R|C|1|Cephallenia:S,Teichum:C,Elis:L,Pheia:C
+Teichum|Y|C|1|Cephallenia:S,Cyllere:C,Dyme:C
+Dyme|Y|C|1|Teichum:C,Patrae:C
+Patrae|Y|C|1|Naupactus:C,Dyme:C
+Panormus|Y|C|1|Naupactus:C,Erineus:C
+Erineus|Y|C|1|Panormus:C,Sicyon:C
+Argos|Y|C|0|Oronae:L,Mycenae:L,Epidaurus:L,Hermione:C,Thyrea:C,Caryae:L,Mantinea:L
