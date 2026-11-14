@@ -972,6 +972,11 @@ func _avvio_prova(modo: String) -> void:
 		if partita.s.finita:
 			break
 		b.gioca(partita)
+	if modo in ["obiettivo", "raduno"]:
+		for i in 3000:
+			if partita.s.finita or partita.s.attesa.get("tipo", "") == "operazione":
+				break
+			b.gioca(partita)
 	if modo.begins_with("fino_"):
 		for i in 3000:
 			if partita.s.finita or partita.s.attesa.get("tipo", "") == modo.substr(5):
@@ -989,7 +994,11 @@ func _avvio_prova(modo: String) -> void:
 			if partita.s.attesa.get("tipo", "") == "operazione":
 				partita.g_inizia("Megara", false, partita.capi_casa(partita.s.lato_g)[0])
 				aggiorna()
-				_spazio_toccato("Athens")
+				_spazio_toccato(Dati.CASA[partita.s.lato_g])
+				raduno_q = partita.disponibili(raduno_spazio, partita.s.lato_g).duplicate()
+				for k in raduno_q:
+					raduno_q[k] = min(raduno_q[k], 2)
+				aggiorna()
 		"tabelle":
 			_apri_tabelle()
 		"diario":
