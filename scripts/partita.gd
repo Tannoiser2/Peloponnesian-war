@@ -630,7 +630,7 @@ func _navale(fa: Dictionary, fb: Dictionary, luogo: String) -> String:
 		return ""
 	var p: int = min(abs(tot[0] - tot[1]), n[v])
 	var perse := perdi(f[1 - v].u, f[1 - v].lato, p, "I", "mare")
-	nota("batt", "Vince %s. %s perde %d punti di navi." % [nl(f[v].lato), nl(f[1 - v].lato), perse.size()])
+	nota("batt", "Vince %s%s. %s %s." % [nl(f[v].lato), " per il Valore Tattico più alto" if tot[0] == tot[1] else "", nl(f[1 - v].lato), _perdite_testo(perse.size(), "navi")])
 	_esito_pv(f[v].lato)
 	var hv := conta(f[v].u, f[v].lato, "H")
 	var hp := conta(f[1 - v].u, f[1 - v].lato, "H")
@@ -706,7 +706,7 @@ func _terrestre(fa: Dictionary, fb: Dictionary, luogo: String) -> String:
 	var ecc: int = max(0, cv[1 - v] - cv[v])
 	p = max(1, p - ecc)
 	var perse := perdi(f[1 - v].u, f[1 - v].lato, p, ts, "terra")
-	nota("batt", "Vince %s. %s perde %d punti di truppe." % [nl(f[v].lato), nl(f[1 - v].lato), perse.size()])
+	nota("batt", "Vince %s%s. %s %s." % [nl(f[v].lato), " per il Valore Tattico più alto" if tot[0] == tot[1] else "", nl(f[1 - v].lato), _perdite_testo(perse.size(), "truppe")])
 	_ostaggi(f[v].lato, perse)
 	_esito_pv(f[v].lato)
 	_sconfitta(f[1 - v])
@@ -714,6 +714,11 @@ func _terrestre(fa: Dictionary, fb: Dictionary, luogo: String) -> String:
 	if h[v] < h[1 - v] + 3:
 		sci_piu(f[1 - v].lato, -1)
 	return f[v].lato
+
+func _perdite_testo(n: int, cosa: String) -> String:
+	if n == 0:
+		return "non perde %s e torna a casa" % cosa
+	return "perde %d %s di %s" % [n, "punto" if n == 1 else "punti", cosa]
 
 func _ostaggi(vincitore: String, perse: Array) -> void:
 	if s.ostaggi[vincitore]:
@@ -857,7 +862,7 @@ func muovi(dest: String, verso_ob: bool) -> bool:
 				nota("op", "A %s l'intercettazione da %s fallisce (dado %d)." % [Dati.nome(b), Dati.nome(fz), di])
 		if verso_ob and era_nemico and not intercettata and presenti(b, avv) == 0 and not sp(b).dev:
 			sp(b).dev = true
-			nota("op", "%s viene saccheggiata." % Dati.nome(b))
+			nota("op", "Saccheggio a %s." % Dati.nome(b))
 	return op.pos == dest
 
 ## Intercettazione riuscita: scaramuccia ed eventuale battaglia. Falso se l'operazione finisce.
@@ -982,6 +987,7 @@ func g_inizia(ob: String, rib: bool, capo: String) -> String:
 
 ## Sposta il condottiero nello spazio di raduno (se serve) e attiva le unità indicate.
 func g_attiva(id: String, u: Dictionary) -> String:
+	u = u.duplicate()
 	if s.attesa.get("tipo", "") != "raduno":
 		return "Non è il momento."
 	if ctrl(id) != op.lato:
@@ -1178,9 +1184,10 @@ func _piano(forza: Dictionary):
 				continue
 			var disp := disponibili(id, np)
 			var gia: Dictionary = presi.get(id, {})
-			var tot_resto := 0
-			for k in disp:
-				tot_resto += disp[k] - gia.get(k, 0)
+			# 5.2.1: "l'ultimo SP" conta tutto ciò che resta nello spazio (Guardia Nazionale e SP già attivati compresi)
+			var tot_resto := presenti(id, np)
+			for k in gia:
+				tot_resto -= gia[k]
 			for t in ["H", "C", "N"]:
 				if manca.get(t, 0) <= 0:
 					continue
@@ -1189,9 +1196,9 @@ func _piano(forza: Dictionary):
 					naz = ["SC", "sC"] if np == "S" else ["AC", "aC"]
 				elif t == "N":
 					naz = ["SN", "sN"] if np == "S" else ["AN", "aN"]
-				var resto_tipo := 0
+				var resto_tipo := presenti(id, np, t)
 				for k in naz:
-					resto_tipo += disp.get(k, 0) - gia.get(k, 0)
+					resto_tipo -= gia.get(k, 0)
 				for k in naz:
 					while manca[t] > 0 and disp.get(k, 0) - gia.get(k, 0) > 0:
 						if passata == 0 and resto_tipo <= 1:

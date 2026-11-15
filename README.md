@@ -22,6 +22,11 @@ Si gioca qui: https://tannoiser2.github.io/Peloponnesian-war/
 - **Tutorial passo passo** (menu e barra in alto), 34 pagine: il regolamento in ordine con le situazioni mostrate
   sulla mappa, l'Esempio di Gioco del Manuale del Giocatore rivissuto mossa per mossa, e le strategie (conti della
   vittoria, probabilità, SCI e cambio di parte, Atene, Sparta, come battere la Matrice).
+- **Partita guidata (impara giocando)** dal menu: giochi davvero il primo turno della Campagna con Atene, in 21
+  passi. Dadi fissati in anticipo (seme 24), così ogni risultato è spiegato con precisione: mossa di Sparta e
+  Lunghe Mura, Auguri, incursione navale con saccheggi, raduno su due spazi e trasporto, battaglia navale vinta per
+  Valore Tattico, assedi, SCI, entrate e costruzione. Il gioco accetta solo la mossa indicata; dal turno 2 giochi
+  libero con consigli che cambiano secondo la situazione. Il riquadro si riduce per liberare la mappa.
 - Mappa da spostare e ingrandire con mouse, rotella e tocco (un dito trascina, due dita pizzicano), anche su iPad.
 - Salvataggio automatico sul dispositivo e su Firebase (radice `peloponnesianwar/partite`, coperta dalla regola comune
   della ludoteca): con il codice di 6 caratteri la partita si riprende da un altro dispositivo.
@@ -52,6 +57,7 @@ scripts/main.gd       interfaccia
 scripts/net.gd        salvataggi su Firebase
 scripts/aiuto.gd      regole in breve e tabelle
 scripts/tutorial.gd   tutorial passo passo: regolamento, esempio di gioco, strategie
+scripts/guida.gd      partita guidata: copione del turno 1 e consigli del turno 2
 data/spazi.json       193 spazi con posizione, tipo, colore, fortezza e collegamenti
 tools/estrazione/     preparazione di mappa, pedine e dati dal modulo TTS
 ```

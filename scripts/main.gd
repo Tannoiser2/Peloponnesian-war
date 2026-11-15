@@ -213,6 +213,7 @@ func _costruisci_menu() -> void:
 		v.add_child(bottone("Continua la partita", _continua_partita, 22))
 	v.add_child(bottone("Nuova campagna (10 turni)", _nuova.bind("campagna"), 22))
 	v.add_child(bottone("Guerra archidamica (3 turni)", _nuova.bind("archidamo"), 22))
+	v.add_child(bottone("Partita guidata (impara giocando)", _nuova_guidata, 22))
 	var riga := HBoxContainer.new()
 	riga.add_theme_constant_override("separation", 10)
 	v.add_child(riga)
@@ -251,6 +252,14 @@ func _codice_nuovo() -> String:
 func _nuova(scenario: String) -> void:
 	partita = Partita.new()
 	partita.nuova(scenario)
+	codice = _codice_nuovo()
+	_apri_gioco()
+	_salva()
+
+func _nuova_guidata() -> void:
+	partita = Partita.new()
+	partita.nuova("campagna", Guida.SEME)
+	partita.s["guida"] = {"passo": 0, "ridotta": false}
 	codice = _codice_nuovo()
 	_apri_gioco()
 	_salva()
@@ -436,14 +445,18 @@ func _apri_gioco() -> void:
 	schermo_gioco.add_child(velo)
 	ob_scelto = ""
 	raduno_spazio = ""
-	if partita.s.attesa.is_empty() and not partita.s.finita:
+	_crea_guida()
+	if partita.s.attesa.is_empty() and not partita.s.finita and not _guida_copione():
 		partita.avanza()
 	aggiorna()
 	await get_tree().process_frame
 	await get_tree().process_frame
 	if is_instance_valid(mappa):
 		mappa.centra_tutto()
-		_metti_a_fuoco()
+		if _guida_copione():
+			_guida_centra()
+		else:
+			_metti_a_fuoco()
 
 func _torna_menu() -> void:
 	if partita != null:
@@ -487,6 +500,7 @@ func aggiorna() -> void:
 		_pannello_lato(lato)
 	_pannello_azione()
 	_pannello_info()
+	_pannello_guida()
 	mappa.queue_redraw()
 
 func _riga_valore(nome: String, valore: String, colore: Color = INCHIOSTRO) -> HBoxContainer:
@@ -564,7 +578,9 @@ func _pannello_azione() -> void:
 			r.add_theme_font_size_override("bold_font_size", 18)
 			r.scroll_following = false
 			azione.add_child(r)
-			azione.add_child(bottone("Continua", _continua, 20))
+			var bc := bottone("Continua", _continua, 20)
+			bc.disabled = _guida_step().get("tipo", "") == "leggi"
+			azione.add_child(bc)
 		"operazione":
 			_azione_operazione()
 		"raduno":
@@ -577,7 +593,9 @@ func _pannello_azione() -> void:
 			azione.add_child(bottone("Torna al menu", _torna_menu, 20))
 		_:
 			_titolo_azione("Avanti")
-			azione.add_child(bottone("Continua", _continua, 20))
+			var bc2 := bottone("Continua", _continua, 20)
+			bc2.disabled = _guida_step().get("tipo", "") == "leggi"
+			azione.add_child(bc2)
 
 func _metti_a_fuoco() -> void:
 	var s: Dictionary = partita.s
@@ -590,11 +608,16 @@ func _metti_a_fuoco() -> void:
 		mappa.centra_nel_libero(id, 310.0, 570.0)
 
 func _continua() -> void:
+	if not _guida_permette("continua"):
+		return
 	partita.avanza()
-	_metti_a_fuoco()
 	ob_scelto = ""
 	raduno_spazio = ""
 	costruzione_q = {}
+	if _guida_fatto("continua"):
+		_guida_centra()
+	else:
+		_metti_a_fuoco()
 	_salva()
 	aggiorna()
 
@@ -612,6 +635,7 @@ func _azione_operazione() -> void:
 		var d: Dictionary = Dati.spazi[ob_scelto]
 		azione.add_child(etichetta("Obiettivo: %s (%s%s)" % [d.nome, Dati.tipo_spazio_nome(d.t), ", fortezza" if d.f == 1 else ""], 22, INCHIOSTRO, f_grassetto, 500))
 		var cb := CheckBox.new()
+		cb.disabled = _guida_copione()
 		cb.text = "Causa Ribellione (100 talenti, riesce con 6)"
 		cb.button_pressed = rib_scelta
 		cb.add_theme_font_size_override("font_size", 19)
@@ -636,16 +660,19 @@ func _azione_operazione() -> void:
 	var h := HBoxContainer.new()
 	h.add_theme_constant_override("separation", 8)
 	azione.add_child(h)
+	var gt: String = _guida_step().get("tipo", "")
 	var parti := bottone("Parti", _g_parti, 20)
-	parti.disabled = ob_scelto == "" or partita.obiettivo_valido(ob_scelto, rib_scelta) != "" or capo_scelto == ""
+	parti.disabled = ob_scelto == "" or partita.obiettivo_valido(ob_scelto, rib_scelta) != "" or capo_scelto == "" or (_guida_copione() and gt != "parti")
 	parti.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	h.add_child(parti)
-	var sugg := bottone("Suggerisci", _suggerisci, 18)
-	sugg.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	h.add_child(sugg)
-	var passa := bottone("Passa", _g_passa, 18)
-	passa.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	h.add_child(passa)
+	if not _guida_copione():
+		var sugg := bottone("Suggerisci", _suggerisci, 18)
+		sugg.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		h.add_child(sugg)
+	if not _guida_copione() or gt == "passa":
+		var passa := bottone("Passa", _g_passa, 18)
+		passa.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		h.add_child(passa)
 
 func _suggerisci() -> void:
 	var p := bot.proponi(partita)
@@ -658,10 +685,14 @@ func _suggerisci() -> void:
 	aggiorna()
 
 func _g_parti() -> void:
+	if not _guida_permette("parti"):
+		return
 	var e := partita.g_inizia(ob_scelto, rib_scelta, capo_scelto)
 	if e != "":
 		_avviso(e)
 		return
+	if _guida_fatto("parti"):
+		_guida_centra()
 	ob_scelto = ""
 	rib_scelta = false
 	raduno_spazio = ""
@@ -669,7 +700,10 @@ func _g_parti() -> void:
 	aggiorna()
 
 func _g_passa() -> void:
+	if not _guida_permette("passa"):
+		return
 	partita.g_passa()
+	_guida_fatto("passa")
 	ob_scelto = ""
 	_salva()
 	aggiorna()
@@ -740,37 +774,52 @@ func _azione_raduno() -> void:
 		var unisci := bottone("Unisci (%d talenti)" % costo, _g_unisci, 18)
 		unisci.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		hu.add_child(unisci)
-		var tutte := bottone("Tutte", func(): raduno_q = disp.duplicate(); aggiorna(), 18)
-		hu.add_child(tutte)
-		var ann := bottone("Chiudi", func(): raduno_spazio = ""; aggiorna(), 18)
-		hu.add_child(ann)
+		if not _guida_copione():
+			var tutte := bottone("Tutte", func(): raduno_q = disp.duplicate(); aggiorna(), 18)
+			hu.add_child(tutte)
+			var ann := bottone("Chiudi", func(): raduno_spazio = ""; aggiorna(), 18)
+			hu.add_child(ann)
 	var hm := HBoxContainer.new()
 	hm.add_theme_constant_override("separation", 8)
 	azione.add_child(hm)
 	var marcia := bottone("Marcia su %s" % Dati.nome(o.ob), _g_marcia, 20)
 	marcia.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	marcia.disabled = _guida_copione() and _guida_step().get("tipo", "") != "marcia"
 	hm.add_child(marcia)
-	hm.add_child(bottone("Rinuncia", func(): partita.g_rinuncia(); raduno_spazio = ""; _salva(); aggiorna(), 16))
+	if not _guida_copione():
+		hm.add_child(bottone("Rinuncia", func(): partita.g_rinuncia(); raduno_spazio = ""; _salva(); aggiorna(), 16))
 
 func _g_unisci() -> void:
 	var u := {}
 	for k in raduno_q:
 		if raduno_q[k] > 0:
 			u[k] = raduno_q[k]
+	if _guida_copione():
+		var st := _guida_step()
+		if st.get("tipo", "") != "raduno" or raduno_spazio != st.id or u != st.u:
+			_guida_avviso = _guida_richiesta()
+			aggiorna()
+			return
 	var e := partita.g_attiva(raduno_spazio, u)
 	if e != "":
 		_avviso(e)
 		return
 	raduno_q = {}
 	raduno_spazio = ""
+	if _guida_fatto("raduno"):
+		_guida_centra()
 	_salva()
 	aggiorna()
 
 func _g_marcia() -> void:
+	if not _guida_permette("marcia"):
+		return
 	var e := partita.g_marcia()
 	if e != "":
 		_avviso(e)
 		return
+	if _guida_fatto("marcia"):
+		_guida_centra()
 	raduno_spazio = ""
 	_salva()
 	aggiorna()
@@ -802,12 +851,26 @@ func _g_costruisci() -> void:
 	for k in costruzione_q:
 		for i in costruzione_q[k]:
 			lista.append(k)
+	if _guida_copione():
+		var st := _guida_step()
+		var voluto := {}
+		for k in st.get("lista", []):
+			voluto[k] = voluto.get(k, 0) + 1
+		var fatto := {}
+		for k in lista:
+			fatto[k] = fatto.get(k, 0) + 1
+		if st.get("tipo", "") != "costruisci" or voluto != fatto:
+			_guida_avviso = _guida_richiesta()
+			aggiorna()
+			return
 	var e := partita.g_costruisci(lista)
 	if e != "":
 		_avviso(e)
 		return
 	costruzione_q = {}
 	partita.avanza()
+	if _guida_fatto("costruisci"):
+		_guida_centra()
 	_salva()
 	aggiorna()
 
@@ -815,6 +878,24 @@ func _g_costruisci() -> void:
 func _spazio_toccato(id: String) -> void:
 	var tipo: String = partita.s.attesa.get("tipo", "")
 	mappa.selezionato = id
+	if _guida_copione():
+		var st := _guida_step()
+		if tipo == "operazione" and st.get("tipo", "") == "obiettivo":
+			if id == st.id:
+				ob_scelto = id
+				mappa.selezionato = ""
+				_guida_fatto("obiettivo")
+			else:
+				_guida_avviso = _guida_richiesta()
+		elif tipo == "raduno" and st.get("tipo", "") == "raduno":
+			if id == st.id:
+				raduno_spazio = id
+				raduno_q = st.u.duplicate()
+				mappa.selezionato = ""
+			else:
+				_guida_avviso = _guida_richiesta()
+		aggiorna()
+		return
 	if tipo == "operazione":
 		ob_scelto = id
 	elif tipo == "raduno":
@@ -965,6 +1046,256 @@ func _apri_salva() -> void:
 		esito.text = "Salvataggio online non riuscito: Firebase non ha ancora le regole per questo gioco. Basta incollare nella console di Firebase (Realtime Database, Regole) il file firebase/database.rules.json della ludoteca. Intanto la partita resta salvata su questo dispositivo."
 	else:
 		esito.text = "Salvataggio online non riuscito: la partita resta su questo dispositivo. %s" % net.ultimo_errore
+
+# ------------------------------------------------------------------ partita guidata
+var guida_cornice: PanelContainer
+var _guida_box: VBoxContainer
+var _guida_avviso := ""
+
+func _guida_attiva() -> bool:
+	return partita != null and partita.s.has("guida")
+
+func _guida_passo() -> int:
+	return int(partita.s.guida.passo) if _guida_attiva() else 0
+
+## Vero nella parte a copione (primo turno), dove la guida accetta solo la mossa indicata.
+func _guida_copione() -> bool:
+	return _guida_attiva() and _guida_passo() < Guida.COPIONE.size()
+
+func _guida_step() -> Dictionary:
+	return Guida.COPIONE[_guida_passo()] if _guida_copione() else {}
+
+func _guida_richiesta() -> String:
+	var st := _guida_step()
+	match st.get("tipo", ""):
+		"leggi":
+			return "Leggi la guida e premi Avanti."
+		"continua":
+			return "Ora premi Continua nel pannello in basso a destra."
+		"obiettivo":
+			return "In questo passo tocca %s sulla mappa (cerchiato)." % Dati.nome(st.id)
+		"parti":
+			return "Ora premi Parti."
+		"raduno":
+			var p := []
+			for k in st.u:
+				p.append("%d %s" % [st.u[k], Dati.NOME_UNITA[k]])
+			return "In questo passo tocca %s e unisci %s." % [Dati.nome(st.id), ", ".join(p)]
+		"marcia":
+			return "Ora premi Marcia."
+		"passa":
+			return "Ora premi Passa."
+		"costruisci":
+			return "Lascia le quantità indicate e premi Costruisci."
+	return ""
+
+## Il giocatore può fare questa mossa? Nella parte a copione solo quella del passo corrente.
+func _guida_permette(mossa: String) -> bool:
+	if not _guida_copione():
+		return true
+	if _guida_step().get("tipo", "") == mossa:
+		return true
+	_guida_avviso = _guida_richiesta()
+	aggiorna()
+	return false
+
+## Segna fatta la mossa del passo corrente e passa al successivo. Vero se la guida è avanzata.
+func _guida_fatto(mossa: String) -> bool:
+	if not _guida_copione() or _guida_step().get("tipo", "") != mossa:
+		return false
+	_guida_avviso = ""
+	partita.s.guida.passo = _guida_passo() + 1
+	var st := _guida_step()
+	if st.get("tipo", "") == "costruisci":
+		costruzione_q = {}
+		for k in st.lista:
+			costruzione_q[k] = costruzione_q.get(k, 0) + 1
+	_salva()
+	aggiorna()
+	return true
+
+func _guida_controlla() -> void:
+	if not _guida_copione():
+		return
+	var st := _guida_step()
+	var att: String = partita.s.attesa.get("tipo", "")
+	var atteso: String = st.get("attesa", "")
+	if att != atteso:
+		# stato inatteso (per esempio un salvataggio di una versione precedente): si passa ai consigli
+		partita.s.guida.passo = Guida.COPIONE.size()
+
+func _guida_larghezza() -> float:
+	return clampf(size.x * 0.36, 360.0, 480.0)
+
+func _guida_verticale() -> bool:
+	return size.x < 1000.0
+
+func _guida_centra() -> void:
+	if not _guida_copione() or not is_instance_valid(mappa):
+		return
+	var st := _guida_step()
+	var c: String = st.get("centro", "")
+	if c == "" or not Dati.spazi.has(c):
+		return
+	if bool(partita.s.guida.get("ridotta", false)):
+		mappa.centra_nel_libero(c, 310.0, 570.0)
+	elif _guida_verticale():
+		mappa.origine = mappa.pos(c) - Vector2(mappa.size.x * 0.5, mappa.size.y * 0.62) / mappa.zoom
+		mappa.queue_redraw()
+	else:
+		mappa.centra_nel_libero(c, _guida_larghezza() + 20.0, 570.0)
+
+func _crea_guida() -> void:
+	guida_cornice = PanelContainer.new()
+	guida_cornice.add_theme_stylebox_override("panel", _scatola(Color(PERGAMENA, 0.97), ORO, 4, 8, 12))
+	schermo_gioco.add_child(guida_cornice)
+	_guida_box = VBoxContainer.new()
+	_guida_box.add_theme_constant_override("separation", 6)
+	guida_cornice.add_child(_guida_box)
+	guida_cornice.visible = false
+
+func _riassunto_parti() -> String:
+	var s: Dictionary = partita.s
+	var r := []
+	for lato in ["A", "S"]:
+		r.append("[b]%s[/b]%s: %d talenti, Bellicosità %d, SCI %s" % [Dati.NOME_LATO[lato], " (tu)" if lato == s.lato_g else "", s.tes[lato], s.bel[lato], ("%+d" % s.sci[lato]) if s.sci[lato] != 0 else "0"])
+	return "\n".join(r)
+
+func _pannello_guida() -> void:
+	if not is_instance_valid(guida_cornice):
+		return
+	var attiva := _guida_attiva()
+	guida_cornice.visible = attiva
+	var ridotta: bool = attiva and bool(partita.s.guida.get("ridotta", false))
+	var nascondi_lati: bool = attiva and (not ridotta or _guida_verticale())
+	for lato in ["A", "S"]:
+		pannelli_lato[lato].get_parent().visible = not nascondi_lati
+	# il riquadro dello spazio toccato si sposta dove non copre la guida
+	if attiva and not ridotta:
+		info_cornice.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+		info_cornice.offset_left = -10.0 - info_cornice.custom_minimum_size.x
+		info_cornice.offset_right = -10
+		info_cornice.offset_top = 106
+		info_cornice.offset_bottom = 106
+		info_cornice.grow_horizontal = Control.GROW_DIRECTION_BEGIN
+		info_cornice.grow_vertical = Control.GROW_DIRECTION_END
+	else:
+		info_cornice.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
+		info_cornice.offset_left = 10
+		info_cornice.offset_right = 10.0 + info_cornice.custom_minimum_size.x
+		info_cornice.offset_bottom = -10
+		info_cornice.offset_top = -10
+		info_cornice.grow_horizontal = Control.GROW_DIRECTION_END
+		info_cornice.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	if not attiva:
+		return
+	_guida_controlla()
+	_svuota(_guida_box)
+	# impaginazione
+	var larg := _guida_larghezza()
+	if ridotta:
+		larg = min(420.0, size.x - 40.0)
+		guida_cornice.set_anchors_preset(Control.PRESET_CENTER_TOP)
+		guida_cornice.offset_left = -larg / 2.0
+		guida_cornice.offset_right = larg / 2.0
+		guida_cornice.offset_top = 104
+		guida_cornice.offset_bottom = 104
+		guida_cornice.grow_vertical = Control.GROW_DIRECTION_END
+	elif _guida_verticale():
+		larg = size.x - 20.0
+		guida_cornice.set_anchors_preset(Control.PRESET_TOP_WIDE)
+		guida_cornice.offset_left = 10
+		guida_cornice.offset_right = -10
+		guida_cornice.offset_top = 104
+		guida_cornice.offset_bottom = 104 + size.y * 0.40
+	else:
+		guida_cornice.set_anchors_preset(Control.PRESET_LEFT_WIDE)
+		guida_cornice.offset_left = 10
+		guida_cornice.offset_right = 10 + larg
+		guida_cornice.offset_top = 104
+		guida_cornice.offset_bottom = -10
+	guida_cornice.custom_minimum_size = Vector2(larg, 0)
+	var copione := _guida_copione()
+	var congedo: bool = not copione and (partita.s.turno >= 3 or partita.s.finita)
+	var testa := HBoxContainer.new()
+	testa.add_theme_constant_override("separation", 8)
+	_guida_box.add_child(testa)
+	var titolo := "PARTITA GUIDATA"
+	if copione:
+		titolo += "  %d/%d" % [_guida_passo() + 1, Guida.COPIONE.size()]
+	var tl := etichetta(titolo, 19, TERRACOTTA, f_titoli)
+	tl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	tl.custom_minimum_size = Vector2(200, 0)
+	testa.add_child(tl)
+	var br := bottone("Mostra" if ridotta else "Riduci", _guida_riduci, 15)
+	br.custom_minimum_size = Vector2(96, 38)
+	testa.add_child(br)
+	if ridotta:
+		var corto := _guida_richiesta() if copione else ("La guida si è conclusa." if congedo else "Turno %d: giochi tu, con i consigli." % partita.s.turno)
+		_guida_box.add_child(etichetta(corto, 17, INCHIOSTRO, f_corsivo, larg - 30.0))
+		return
+	var ria := testo_ricco(_riassunto_parti(), larg - 30.0)
+	ria.add_theme_font_size_override("normal_font_size", 16)
+	ria.add_theme_font_size_override("bold_font_size", 16)
+	_guida_box.add_child(ria)
+	var g := Greca.new()
+	g.custom_minimum_size = Vector2(larg - 30.0, 12)
+	_guida_box.add_child(g)
+	var testo := ""
+	if copione:
+		var st := _guida_step()
+		testo = "[font_size=23][color=#8a2a1c]%s[/color][/font_size]\n%s" % [st.titolo, st.testo]
+	elif congedo:
+		testo = Guida.CONGEDO
+	else:
+		testo = Guida.consiglio(partita)
+	if _guida_avviso != "":
+		var av := etichetta(_guida_avviso, 18, ROSSO, f_grassetto, larg - 30.0)
+		_guida_box.add_child(av)
+	var r := testo_ricco(testo, larg - 30.0, 120.0)
+	r.add_theme_font_size_override("normal_font_size", 19 if not _guida_verticale() else 18)
+	r.add_theme_font_size_override("bold_font_size", 19 if not _guida_verticale() else 18)
+	r.scroll_following = false
+	_guida_box.add_child(r)
+	var riga := HBoxContainer.new()
+	riga.add_theme_constant_override("separation", 8)
+	_guida_box.add_child(riga)
+	if copione and _guida_step().tipo == "leggi":
+		var av2 := bottone("Avanti", func(): _guida_fatto("leggi"); _guida_centra(), 19)
+		av2.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		riga.add_child(av2)
+	elif congedo:
+		var ch := bottone("Chiudi la guida", _guida_chiudi, 19)
+		ch.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		riga.add_child(ch)
+	else:
+		var esci := bottone("Esci dalla guida", _guida_chiedi_uscita, 15)
+		esci.custom_minimum_size = Vector2(0, 38)
+		riga.add_child(esci)
+	if copione:
+		for id in _guida_step().get("evid", []):
+			if not mappa.evidenziati.has(id):
+				mappa.evidenziati[id] = Color(1.0, 0.8, 0.15, 0.95)
+
+func _guida_riduci() -> void:
+	partita.s.guida.ridotta = not bool(partita.s.guida.get("ridotta", false))
+	aggiorna()
+	_guida_centra()
+
+func _guida_chiudi() -> void:
+	partita.s.erase("guida")
+	_guida_avviso = ""
+	_salva()
+	aggiorna()
+
+func _guida_chiedi_uscita() -> void:
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", 10)
+	v.add_child(etichetta("Vuoi chiudere la guida? La partita continua come una Campagna normale e nessuna mossa ti sarà più imposta.", 21, INCHIOSTRO, null, 560))
+	var f: Control
+	var b := bottone("Sì, chiudi la guida", func(): _guida_chiudi(); f.queue_free(), 19)
+	v.add_child(b)
+	f = _finestra("Esci dalla guida", v, 620)
 
 # ------------------------------------------------------------------ tutorial
 var tut_pagina := 0
@@ -1122,9 +1453,42 @@ func _tut_vai(i: int) -> void:
 	nav.add_child(av)
 
 # ------------------------------------------------------------------ avvio per le prove (screenshot)
+## Esegue il passo corrente della guida attraverso l'interfaccia, come farebbe il giocatore (usato dalle prove).
+func _guida_esegui_passo() -> void:
+	var st := _guida_step()
+	match st.get("tipo", ""):
+		"leggi":
+			_guida_fatto("leggi")
+		"continua":
+			_continua()
+		"obiettivo":
+			_spazio_toccato(st.id)
+		"parti":
+			_g_parti()
+		"raduno":
+			_spazio_toccato(st.id)
+			_g_unisci()
+		"marcia":
+			_g_marcia()
+		"passa":
+			_g_passa()
+		"costruisci":
+			_g_costruisci()
+
 func _avvio_prova(modo: String) -> void:
 	net.offline = true
 	if modo == "menu":
+		return
+	if modo.begins_with("guida"):
+		_nuova_guidata()
+		var fino := int(OS.get_environment("PW_PASSI")) if OS.get_environment("PW_PASSI") != "" else 0
+		await get_tree().process_frame
+		for i in fino:
+			_guida_esegui_passo()
+		if modo == "guida_ridotta":
+			_guida_riduci()
+		await get_tree().process_frame
+		_guida_centra()
 		return
 	if modo == "tutorial":
 		tut_pagina = int(OS.get_environment("PW_PASSI")) if OS.get_environment("PW_PASSI") != "" else 0
